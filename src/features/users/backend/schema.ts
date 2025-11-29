@@ -47,3 +47,17 @@ export type UserRow = z.infer<typeof UserTableRowSchema>;
 export type CreateUserBody = z.infer<typeof CreateUserBodySchema>;
 export type UpdateUserBody = z.infer<typeof UpdateUserBodySchema>;
 
+export const UpdateLanguageBodySchema = z.object({
+  userId: z.string().uuid({ message: 'User id must be a valid UUID.' }),
+  language: LanguageEnum,
+});
+
+export type UpdateLanguageBody = z.infer<typeof UpdateLanguageBodySchema>;
+
+export const UpdateLanguageResponseSchema = z.object({
+  success: z.boolean(),
+  language: LanguageEnum,
+});
+
+export type UpdateLanguageResponse = z.infer<typeof UpdateLanguageResponseSchema>;
+

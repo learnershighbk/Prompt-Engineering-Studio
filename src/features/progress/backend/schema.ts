@@ -46,3 +46,28 @@ export const ProgressSummarySchema = z.object({
 
 export type ProgressSummary = z.infer<typeof ProgressSummarySchema>;
 
+export const ProgressItemSchema = z.object({
+  lessonSlug: z.string(),
+  completed: z.boolean(),
+  completedAt: z.string().nullable(),
+});
+
+export type ProgressItem = z.infer<typeof ProgressItemSchema>;
+
+export const ProgressApiResponseSchema = z.object({
+  progress: z.array(ProgressItemSchema),
+  summary: z.object({
+    total: z.number(),
+    completed: z.number(),
+  }),
+});
+
+export type ProgressApiResponse = z.infer<typeof ProgressApiResponseSchema>;
+
+export const SaveProgressResponseSchema = z.object({
+  success: z.boolean(),
+  progress: ProgressItemSchema,
+});
+
+export type SaveProgressResponse = z.infer<typeof SaveProgressResponseSchema>;
+

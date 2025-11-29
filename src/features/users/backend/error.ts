@@ -5,6 +5,7 @@ export const userErrorCodes = {
   updateError: 'USER_UPDATE_ERROR',
   validationError: 'USER_VALIDATION_ERROR',
   duplicateStudentId: 'USER_DUPLICATE_STUDENT_ID',
+  invalidLanguage: 'INVALID_LANGUAGE',
 } as const;
 
 type UserErrorValue = (typeof userErrorCodes)[keyof typeof userErrorCodes];

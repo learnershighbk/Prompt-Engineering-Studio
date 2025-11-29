@@ -14,6 +14,7 @@ import {
   StudentIdParamsSchema,
   CreateUserBodySchema,
   UpdateUserBodySchema,
+  UpdateLanguageBodySchema,
 } from '@/features/users/backend/schema';
 import {
   getUserById,
@@ -21,6 +22,7 @@ import {
   createUser,
   updateUser,
   findOrCreateUser,
+  updateUserLanguage,
 } from './service';
 import {
   userErrorCodes,
@@ -194,6 +196,55 @@ export const registerUserRoutes = (app: Hono<AppEnv>) => {
     if (!result.ok) {
       const errorResult = result as ErrorResult<UserServiceError, unknown>;
       logger.error('Failed to find or create user', errorResult.error.message);
+    }
+
+    return respond(c, result);
+  });
+
+  app.patch('/api/user/language', async (c) => {
+    const body = await c.req.json();
+    const parsedBody = UpdateLanguageBodySchema.safeParse(body);
+
+    if (!parsedBody.success) {
+      const languageError = parsedBody.error.issues.find(
+        (issue) => issue.path.includes('language')
+      );
+
+      if (languageError) {
+        return respond(
+          c,
+          failure(
+            400,
+            userErrorCodes.invalidLanguage,
+            '지원하지 않는 언어입니다',
+            parsedBody.error.format(),
+          ),
+        );
+      }
+
+      return respond(
+        c,
+        failure(
+          400,
+          'INVALID_LANGUAGE_BODY',
+          '언어 설정 데이터가 올바르지 않습니다.',
+          parsedBody.error.format(),
+        ),
+      );
+    }
+
+    const supabase = getSupabase(c);
+    const logger = getLogger(c);
+
+    const result = await updateUserLanguage(
+      supabase,
+      parsedBody.data.userId,
+      parsedBody.data.language,
+    );
+
+    if (!result.ok) {
+      const errorResult = result as ErrorResult<UserServiceError, unknown>;
+      logger.error('Failed to update language', errorResult.error.message);
     }
 
     return respond(c, result);

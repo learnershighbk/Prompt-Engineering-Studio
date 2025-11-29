@@ -11,6 +11,7 @@ import {
   type UserRow,
   type CreateUserBody,
   type UpdateUserBody,
+  type UpdateLanguageResponse,
 } from '@/features/users/backend/schema';
 import {
   userErrorCodes,
@@ -238,5 +239,22 @@ export const findOrCreateUser = async (
   }
 
   return createUser(client, { studentId, userType: 'student', language: 'ko' });
+};
+
+export const updateUserLanguage = async (
+  client: SupabaseClient,
+  userId: string,
+  language: 'ko' | 'en',
+): Promise<HandlerResult<UpdateLanguageResponse, UserServiceError, unknown>> => {
+  const { error } = await client
+    .from(USERS_TABLE)
+    .update({ language })
+    .eq('id', userId);
+
+  if (error) {
+    return failure(500, userErrorCodes.updateError, '언어 변경에 실패했습니다');
+  }
+
+  return success({ success: true, language });
 };
 

@@ -4,6 +4,8 @@ export const progressErrorCodes = {
   upsertError: 'PROGRESS_UPSERT_ERROR',
   validationError: 'PROGRESS_VALIDATION_ERROR',
   userNotFound: 'PROGRESS_USER_NOT_FOUND',
+  missingUserId: 'MISSING_USER_ID',
+  invalidLesson: 'INVALID_LESSON',
 } as const;
 
 type ProgressErrorValue = (typeof progressErrorCodes)[keyof typeof progressErrorCodes];

@@ -12,6 +12,8 @@ import {
   type ProgressRow,
   type UpsertProgressBody,
   type ProgressSummary,
+  type ProgressApiResponse,
+  type SaveProgressResponse,
 } from '@/features/progress/backend/schema';
 import {
   progressErrorCodes,
@@ -20,6 +22,7 @@ import {
 
 const PROGRESS_TABLE = 'progress';
 const TOTAL_LESSONS = LessonSlugEnum.options.length;
+const ALL_LESSON_SLUGS = LessonSlugEnum.options;
 
 const mapRowToResponse = (row: ProgressRow): ProgressResponse => ({
   id: row.id,
@@ -156,6 +159,80 @@ export const getCompletedCount = async (
   return success({
     completedCount: count ?? 0,
     totalLessons: TOTAL_LESSONS,
+  });
+};
+
+export const getProgressForApi = async (
+  client: SupabaseClient,
+  userId: string,
+): Promise<HandlerResult<ProgressApiResponse, ProgressServiceError, unknown>> => {
+  const { data, error } = await client
+    .from(PROGRESS_TABLE)
+    .select('lesson_slug, completed, completed_at')
+    .eq('user_id', userId);
+
+  if (error) {
+    return failure(500, progressErrorCodes.fetchError, error.message);
+  }
+
+  const rows = data ?? [];
+  const progressMap = new Map(
+    rows.map((row) => [row.lesson_slug, row])
+  );
+
+  const progress = ALL_LESSON_SLUGS.map((slug) => ({
+    lessonSlug: slug,
+    completed: progressMap.get(slug)?.completed ?? false,
+    completedAt: progressMap.get(slug)?.completed_at ?? null,
+  }));
+
+  const completedCount = progress.filter((p) => p.completed).length;
+
+  return success({
+    progress,
+    summary: {
+      total: TOTAL_LESSONS,
+      completed: completedCount,
+    },
+  });
+};
+
+export const saveProgressForApi = async (
+  client: SupabaseClient,
+  body: UpsertProgressBody,
+): Promise<HandlerResult<SaveProgressResponse, ProgressServiceError, unknown>> => {
+  const completedAt = body.completed ? new Date().toISOString() : null;
+
+  const { data, error } = await client
+    .from(PROGRESS_TABLE)
+    .upsert(
+      {
+        user_id: body.userId,
+        lesson_slug: body.lessonSlug,
+        completed: body.completed,
+        completed_at: completedAt,
+      },
+      {
+        onConflict: 'user_id,lesson_slug',
+      },
+    )
+    .select('lesson_slug, completed, completed_at')
+    .single();
+
+  if (error) {
+    if (error.code === '23503') {
+      return failure(404, progressErrorCodes.userNotFound, '사용자를 찾을 수 없습니다.');
+    }
+    return failure(500, progressErrorCodes.upsertError, error.message);
+  }
+
+  return success({
+    success: true,
+    progress: {
+      lessonSlug: data.lesson_slug,
+      completed: data.completed,
+      completedAt: data.completed_at,
+    },
   });
 };
 

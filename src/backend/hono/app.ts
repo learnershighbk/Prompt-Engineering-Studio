@@ -5,11 +5,17 @@ import { withSupabase } from '@/backend/middleware/supabase';
 import { registerExampleRoutes } from '@/features/example/backend/route';
 import { registerUserRoutes } from '@/features/users/backend/route';
 import { registerProgressRoutes } from '@/features/progress/backend/route';
+import { registerAuthRoutes } from '@/features/auth/backend/route';
+import { registerChatRoutes } from '@/features/chat/backend/route';
 import type { AppEnv } from '@/backend/hono/context';
 
 let singletonApp: Hono<AppEnv> | null = null;
 
 export const createHonoApp = () => {
+  if (process.env.NODE_ENV === 'development') {
+    singletonApp = null;
+  }
+
   if (singletonApp) {
     return singletonApp;
   }
@@ -21,8 +27,10 @@ export const createHonoApp = () => {
   app.use('*', withSupabase());
 
   registerExampleRoutes(app);
+  registerAuthRoutes(app);
   registerUserRoutes(app);
   registerProgressRoutes(app);
+  registerChatRoutes(app);
 
   singletonApp = app;
 
