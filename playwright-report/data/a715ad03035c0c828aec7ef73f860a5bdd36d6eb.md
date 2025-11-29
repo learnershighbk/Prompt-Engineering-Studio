@@ -1,0 +1,140 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - status [ref=e2]:
+    - generic [ref=e3]:
+      - img [ref=e5]
+      - generic [ref=e7]:
+        - text: Static route
+        - button "Hide static indicator" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+  - alert [ref=e12]
+  - generic [ref=e13]:
+    - banner [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - button "뒤로" [ref=e17]:
+            - img [ref=e18]
+          - link "Prompt Lab" [ref=e20] [cursor=pointer]:
+            - /url: /learn
+            - img [ref=e21]
+            - generic [ref=e23]: Prompt Lab
+        - generic [ref=e24]:
+          - generic [ref=e25]: "202400001"
+          - radiogroup "언어 선택" [ref=e26]:
+            - img [ref=e27]
+            - radio "KOR" [checked] [ref=e30]
+            - radio "ENG" [ref=e31]
+    - main [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - link "학습 목록" [ref=e35] [cursor=pointer]:
+            - /url: /learn
+          - img [ref=e36]
+          - generic [ref=e38]: Prompt Engineering 개요
+        - heading "Prompt Engineering 개요" [level=1] [ref=e39]
+        - paragraph [ref=e40]: Prompt Engineering의 정의와 정책 연구에서의 중요성, 기본 원칙을 학습합니다.
+      - generic [ref=e41]:
+        - generic [ref=e43]:
+          - article [ref=e44]:
+            - heading "Prompt Engineering이란?" [level=2] [ref=e45]
+            - paragraph [ref=e46]:
+              - text: Prompt Engineering은 AI 모델에게 원하는 결과를 얻기 위해
+              - strong [ref=e47]: 효과적인 입력(프롬프트)을 설계하는 기술
+              - text: 입니다.
+            - heading "왜 정책학도에게 중요한가요?" [level=3] [ref=e48]
+            - paragraph [ref=e49]: 같은 AI 모델이라도 프롬프트를 어떻게 작성하느냐에 따라 정책 분석의 품질이 크게 달라집니다.
+            - paragraph [ref=e50]:
+              - strong [ref=e51]: "나쁜 예시:"
+            - code [ref=e54]: 저출산 정책 분석해줘
+            - paragraph [ref=e55]:
+              - strong [ref=e56]: "좋은 예시:"
+            - code [ref=e59]: 한국의 저출산 대응 정책 중 '육아휴직 급여 인상'에 대해 Bardach의 8단계 정책분석 프레임워크를 적용하여 분석해주세요. 정책 목표, 대안, 예상 효과를 포함해주세요. 대상 독자는 정책학 석사과정 학생입니다.
+            - heading "정책 연구에서 AI 활용" [level=3] [ref=e60]
+            - list [ref=e61]:
+              - listitem [ref=e62]:
+                - strong [ref=e63]: 문헌 검토 효율화
+                - text: ": 대량의 정책 문서 요약 및 핵심 논점 추출"
+              - listitem [ref=e64]:
+                - strong [ref=e65]: 정책 브리핑 작성
+                - text: ": 구조화된 정책 보고서 초안 작성"
+              - listitem [ref=e66]:
+                - strong [ref=e67]: 이해관계자 분석
+                - text: ": 다양한 관점에서의 정책 영향 분석"
+              - listitem [ref=e68]:
+                - strong [ref=e69]: 비교 정책 분석
+                - text: ": 국가별/시기별 정책 비교"
+            - heading "좋은 프롬프트의 3가지 원칙" [level=3] [ref=e70]
+            - list [ref=e71]:
+              - listitem [ref=e72]:
+                - strong [ref=e73]: 명확성 (Clarity)
+                - text: ": 분석 대상, 범위, 관점을 구체적으로 표현"
+              - listitem [ref=e74]:
+                - strong [ref=e75]: 맥락 (Context)
+                - text: ": 이론적 프레임워크, 배경 정보 제공"
+              - listitem [ref=e76]:
+                - strong [ref=e77]: 형식 (Format)
+                - text: ": 원하는 출력 형태 명시 (표, 개조식, 에세이 등)"
+            - heading "이 과정에서 배울 내용" [level=3] [ref=e78]
+            - list [ref=e79]:
+              - listitem [ref=e80]:
+                - strong [ref=e81]: Zero-shot Prompting
+                - text: ": 정책 요약, 개념 설명에 활용"
+              - listitem [ref=e82]:
+                - strong [ref=e83]: Few-shot Prompting
+                - text: ": 일관된 형식의 정책 사례 분석"
+              - listitem [ref=e84]:
+                - strong [ref=e85]: Chain of Thought
+                - text: ": 복잡한 정책 효과 추론 및 인과관계 분석"
+          - generic [ref=e86]:
+            - generic [ref=e87]:
+              - img [ref=e88]
+              - heading "예제" [level=3] [ref=e90]
+            - generic [ref=e92]:
+              - generic [ref=e93]:
+                - generic [ref=e94]: 정책 브리핑 작성
+                - paragraph [ref=e95]: 구체적인 요구사항을 제시하여 정책 브리핑을 작성하는 예시입니다.
+              - generic [ref=e96]:
+                - generic [ref=e97]:
+                  - generic [ref=e98]: "다음 요구사항에 맞춰 정책 브리핑을 작성해주세요: - 정책: 한국의 그린뉴딜 정책 (2020) - 구조: 배경, 목표, 핵심 과제, 쟁점, 평가 - 분량: 각 항목 2-3문장 - 대상 독자: 정책학 석사과정 학생 - 톤: 객관적이고 분석적인"
+                  - button "복사" [ref=e100]:
+                    - img [ref=e101]
+                    - text: 복사
+                - button "실습에서 사용하기" [ref=e104]
+        - generic [ref=e105]:
+          - generic [ref=e107]:
+            - textbox "프롬프트를 입력하세요..." [ref=e108]: ODA 효과성 분석해줘
+            - generic [ref=e109]:
+              - generic [ref=e110]:
+                - generic [ref=e111]: 12/4000
+                - generic [ref=e112]: Ctrl/Cmd + Enter
+              - generic [ref=e113]:
+                - button "초기화" [ref=e114]:
+                  - img [ref=e115]
+                  - text: 초기화
+                - button "프롬프트 실행" [ref=e118]:
+                  - img [ref=e119]
+                  - text: 프롬프트 실행
+          - generic [ref=e122]:
+            - generic [ref=e124]:
+              - img [ref=e125]
+              - generic [ref=e127]: AI 응답
+            - generic [ref=e129]:
+              - img [ref=e130]
+              - paragraph [ref=e132]: 프롬프트를 실행하면 AI 응답이 여기에 표시됩니다.
+          - button "힌트 보기" [ref=e134]:
+            - img [ref=e135]
+            - text: 힌트 보기
+            - img [ref=e137]
+    - contentinfo [ref=e139]:
+      - generic [ref=e141]:
+        - generic [ref=e143] [cursor=pointer]:
+          - checkbox "완료로 표시" [disabled] [ref=e144]
+          - generic [ref=e145]: 완료로 표시
+        - link "다음" [ref=e147] [cursor=pointer]:
+          - /url: /learn/zero-shot
+          - button "다음" [ref=e148]:
+            - generic [ref=e149]: 다음
+            - img [ref=e150]
+```

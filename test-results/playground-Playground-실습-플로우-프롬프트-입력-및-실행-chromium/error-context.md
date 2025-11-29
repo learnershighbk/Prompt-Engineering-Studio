@@ -1,0 +1,58 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - button "뒤로" [ref=e6]:
+            - img [ref=e7]
+          - link "Prompt Lab" [ref=e9] [cursor=pointer]:
+            - /url: /learn
+            - img [ref=e10]
+            - generic [ref=e12]: Prompt Lab
+        - generic [ref=e13]:
+          - generic [ref=e14]: "202400001"
+          - radiogroup "언어 선택" [ref=e15]:
+            - img [ref=e16]
+            - radio "KOR" [checked] [ref=e19]
+            - radio "ENG" [ref=e20]
+    - main [ref=e21]:
+      - generic [ref=e23]:
+        - img [ref=e25]
+        - generic [ref=e27]:
+          - heading "Playground" [level=1] [ref=e28]
+          - paragraph [ref=e29]: 자유롭게 프롬프트를 실험해보세요
+      - generic [ref=e30]:
+        - generic [ref=e32]:
+          - generic [ref=e35]: 프롬프트 입력
+          - generic [ref=e36]:
+            - textbox "프롬프트를 입력하세요..." [ref=e38]: 안녕하세요. 이것은 테스트 프롬프트입니다.
+            - generic [ref=e39]:
+              - generic [ref=e40]:
+                - generic [ref=e41]: 23/4000
+                - generic [ref=e42]: Ctrl/Cmd + Enter
+              - generic [ref=e43]:
+                - button "초기화" [ref=e44]:
+                  - img [ref=e45]
+                  - text: 초기화
+                - button "프롬프트 실행" [ref=e48]:
+                  - img [ref=e49]
+                  - text: 프롬프트 실행
+        - generic [ref=e52]:
+          - generic [ref=e54]:
+            - img [ref=e55]
+            - generic [ref=e57]: AI 응답
+          - generic [ref=e59]:
+            - img [ref=e60]
+            - paragraph [ref=e62]: 프롬프트를 실행하면 AI 응답이 여기에 표시됩니다.
+      - paragraph [ref=e64]: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+      - generic [ref=e65]:
+        - heading "💡 팁" [level=3] [ref=e66]
+        - list [ref=e67]:
+          - listitem [ref=e68]: • Ctrl/Cmd + Enter로 빠르게 실행할 수 있습니다
+          - listitem [ref=e69]: • 구체적인 요구사항을 명시하면 더 좋은 결과를 얻을 수 있습니다
+          - listitem [ref=e70]: • 출력 형식(표, 목록, 단락)을 지정해보세요
+  - alert [ref=e71]
+```
