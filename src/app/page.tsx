@@ -13,11 +13,13 @@ const STUDENT_ID_KEY = "prompt-lab-student-id";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { language, setLanguage, t, isLoaded } = useLanguage();
+  const { language, t } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
+    setIsHydrated(true);
     const storedUserId = localStorage.getItem(USER_ID_KEY);
     if (storedUserId) {
       router.replace("/learn");
@@ -47,7 +49,7 @@ export default function LoginPage() {
     }
   };
 
-  if (!isLoaded) {
+  if (!isHydrated) {
     return (
       <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         <div className="animate-pulse">
@@ -60,7 +62,7 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="absolute top-4 right-4">
-        <LanguageToggle currentLanguage={language} onChange={setLanguage} />
+        <LanguageToggle />
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center p-4">

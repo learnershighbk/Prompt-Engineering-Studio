@@ -234,11 +234,13 @@ export const findOrCreateUser = async (
     return existingResult;
   }
 
-  if (existingResult.error.code !== userErrorCodes.notFound) {
-    return existingResult;
+  // User not found - create new user
+  if ('error' in existingResult && existingResult.error.code === userErrorCodes.notFound) {
+    return createUser(client, { studentId, userType: 'student', language: 'ko' });
   }
 
-  return createUser(client, { studentId, userType: 'student', language: 'ko' });
+  // Other error - return as is
+  return existingResult;
 };
 
 export const updateUserLanguage = async (

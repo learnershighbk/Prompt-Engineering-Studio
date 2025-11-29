@@ -1,0 +1,94 @@
+{
+  "common": {
+    "appName": "Prompt Lab",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "complete": "Complete",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "reset": "Reset",
+    "execute": "Execute",
+    "playground": "Playground"
+  },
+  "login": {
+    "title": "Prompt Lab",
+    "subtitle": "Enter your student or employee ID",
+    "description": "Let's learn Prompt Engineering together!",
+    "placeholder": "Enter 9-digit number",
+    "submit": "Get Started",
+    "button": "Get Started",
+    "error": "ID must be exactly 9 digits",
+    "loginFailed": "Login failed. Please try again."
+  },
+  "header": {
+    "playground": "Playground",
+    "language": "Language",
+    "logout": "Logout",
+    "learn": "Learn"
+  },
+  "learn": {
+    "title": "Lessons",
+    "subtitle": "Learn the core techniques of Prompt Engineering",
+    "progress": "{completed}/{total} completed",
+    "progressText": "{completed}/{total} completed",
+    "allCompleted": "You've completed all lessons! 🎉",
+    "completed": "Completed",
+    "start": "Start Learning",
+    "continue": "Continue",
+    "duration": "{time}",
+    "markComplete": "Mark as complete",
+    "content": "Content",
+    "practice": "Practice"
+  },
+  "lesson": {
+    "content": "Content",
+    "practice": "Practice",
+    "examples": "Examples",
+    "tryExample": "Try this example",
+    "tryIt": "Try it yourself",
+    "markComplete": "Mark as complete",
+    "completed": "Completed ✓",
+    "previous": "Previous",
+    "next": "Next",
+    "backToList": "Back to list",
+    "hints": "Hints",
+    "showHints": "Show hints",
+    "hideHints": "Hide hints"
+  },
+  "playground": {
+    "title": "Playground",
+    "description": "Experiment with prompts freely",
+    "placeholder": "Enter your prompt...",
+    "inputPlaceholder": "Enter your prompt...",
+    "submit": "Run",
+    "clear": "Clear",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "charCount": "{current}/{max}",
+    "response": "AI Response",
+    "waiting": "AI is generating a response...",
+    "empty": "Enter a prompt and click Run",
+    "emptyResponse": "AI response will appear here after you execute a prompt.",
+    "error": "Failed to generate response. Please try again.",
+    "shortcuts": "Shortcut: Ctrl+Enter to run",
+    "executeButton": "Execute Prompt",
+    "streaming": "Generating response..."
+  },
+  "errors": {
+    "notFound": "Page not found",
+    "unauthorized": "Login required",
+    "serverError": "Server error occurred",
+    "networkError": "Please check your network connection"
+  },
+  "language": {
+    "ko": "한국어",
+    "en": "English"
+  }
+}

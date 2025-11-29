@@ -1,39 +1,52 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { Language, getMessage } from "@/constants/messages";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useCallback, useTransition } from "react";
+import { Locale, locales } from "@/i18n/config";
 
-const LANGUAGE_KEY = "prompt-lab-language";
+export type Language = Locale;
 
 export function useLanguage() {
-  const [language, setLanguageState] = useState<Language>("ko");
-  const [isLoaded, setIsLoaded] = useState(false);
+  const locale = useLocale() as Locale;
+  const t = useTranslations();
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
-  useEffect(() => {
-    const stored = localStorage.getItem(LANGUAGE_KEY) as Language | null;
-    if (stored && (stored === "ko" || stored === "en")) {
-      setLanguageState(stored);
-    }
-    setIsLoaded(true);
-  }, []);
+  const setLanguage = useCallback(
+    async (newLocale: Language) => {
+      if (newLocale === locale || !locales.includes(newLocale)) return;
 
-  const setLanguage = useCallback((lang: Language) => {
-    setLanguageState(lang);
-    localStorage.setItem(LANGUAGE_KEY, lang);
-  }, []);
+      // 1. 쿠키에 언어 저장
+      document.cookie = `NEXT_LOCALE=${newLocale};path=/;max-age=31536000`;
 
-  const t = useCallback(
-    (path: string, params?: Record<string, string | number>) => {
-      return getMessage(language, path, params);
+      // 2. localStorage 저장 (하위 호환성)
+      localStorage.setItem("prompt-lab-language", newLocale);
+
+      // 3. 페이지 새로고침
+      startTransition(() => {
+        router.refresh();
+      });
     },
-    [language]
+    [locale, router]
+  );
+
+  const getMessage = useCallback(
+    (path: string, params?: Record<string, string | number>) => {
+      try {
+        return t(path, params as Record<string, string>);
+      } catch {
+        return path;
+      }
+    },
+    [t]
   );
 
   return {
-    language,
+    language: locale,
     setLanguage,
-    t,
-    isLoaded,
+    t: getMessage,
+    isLoaded: true,
+    isPending,
   };
 }
-

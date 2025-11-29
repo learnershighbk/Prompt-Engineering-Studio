@@ -1,4 +1,6 @@
-import type { Language } from "@/constants/messages";
+import type { Locale } from "@/i18n/config";
+
+type Language = Locale;
 
 export interface LessonExample {
   title: string;

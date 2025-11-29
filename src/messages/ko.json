@@ -1,0 +1,94 @@
+{
+  "common": {
+    "appName": "Prompt Lab",
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "retry": "다시 시도",
+    "save": "저장",
+    "cancel": "취소",
+    "confirm": "확인",
+    "back": "뒤로",
+    "next": "다음",
+    "previous": "이전",
+    "complete": "완료",
+    "copy": "복사",
+    "copied": "복사됨!",
+    "reset": "초기화",
+    "execute": "실행",
+    "playground": "Playground"
+  },
+  "login": {
+    "title": "Prompt Lab",
+    "subtitle": "학번 또는 사번을 입력하세요",
+    "description": "Prompt Engineering을 함께 배워봐요!",
+    "placeholder": "9자리 숫자 입력",
+    "submit": "시작하기",
+    "button": "시작하기",
+    "error": "학번 또는 사번은 9자리 숫자입니다",
+    "loginFailed": "로그인에 실패했습니다. 다시 시도해주세요."
+  },
+  "header": {
+    "playground": "Playground",
+    "language": "언어",
+    "logout": "로그아웃",
+    "learn": "학습"
+  },
+  "learn": {
+    "title": "학습 목록",
+    "subtitle": "Prompt Engineering의 핵심 기법을 배워보세요",
+    "progress": "{completed}/{total} 완료",
+    "progressText": "{completed}/{total} 완료",
+    "allCompleted": "모든 학습을 완료했습니다! 🎉",
+    "completed": "완료",
+    "start": "학습 시작",
+    "continue": "이어서 학습",
+    "duration": "{time} 소요",
+    "markComplete": "완료로 표시",
+    "content": "콘텐츠",
+    "practice": "실습"
+  },
+  "lesson": {
+    "content": "학습 내용",
+    "practice": "실습",
+    "examples": "예제",
+    "tryExample": "이 예제 실행하기",
+    "tryIt": "직접 해보기",
+    "markComplete": "완료로 표시",
+    "completed": "완료됨 ✓",
+    "previous": "이전 단원",
+    "next": "다음 단원",
+    "backToList": "목록으로",
+    "hints": "힌트",
+    "showHints": "힌트 보기",
+    "hideHints": "힌트 숨기기"
+  },
+  "playground": {
+    "title": "Playground",
+    "description": "자유롭게 프롬프트를 실험해보세요",
+    "placeholder": "프롬프트를 입력하세요...",
+    "inputPlaceholder": "프롬프트를 입력하세요...",
+    "submit": "실행",
+    "clear": "초기화",
+    "copy": "복사",
+    "copied": "복사됨!",
+    "charCount": "{current}/{max}",
+    "response": "AI 응답",
+    "waiting": "AI가 응답을 생성하고 있습니다...",
+    "empty": "프롬프트를 입력하고 실행 버튼을 클릭하세요",
+    "emptyResponse": "프롬프트를 실행하면 AI 응답이 여기에 표시됩니다.",
+    "error": "응답 생성에 실패했습니다. 다시 시도해주세요.",
+    "shortcuts": "단축키: Ctrl+Enter로 실행",
+    "executeButton": "프롬프트 실행",
+    "streaming": "응답 생성 중..."
+  },
+  "errors": {
+    "notFound": "페이지를 찾을 수 없습니다",
+    "unauthorized": "로그인이 필요합니다",
+    "serverError": "서버 오류가 발생했습니다",
+    "networkError": "네트워크 연결을 확인해주세요"
+  },
+  "language": {
+    "ko": "한국어",
+    "en": "English"
+  }
+}

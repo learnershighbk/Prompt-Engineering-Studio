@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/hooks/useLanguage";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, Beaker } from "lucide-react";
 import Link from "next/link";
@@ -21,7 +21,7 @@ export default function Header({
   className,
 }: HeaderProps) {
   const router = useRouter();
-  const { language, setLanguage, t } = useLanguage();
+  const t = useTranslations();
 
   return (
     <header
@@ -63,17 +63,13 @@ export default function Header({
               href="/playground"
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hidden sm:flex items-center gap-1"
             >
-              {t("common.playground")}
+              {t("header.playground")}
             </Link>
           )}
 
-          <LanguageToggle
-            currentLanguage={language}
-            onChange={setLanguage}
-          />
+          <LanguageToggle />
         </div>
       </div>
     </header>
   );
 }
-
