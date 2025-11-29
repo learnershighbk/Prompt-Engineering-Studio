@@ -1,0 +1,27 @@
+{
+  "slug": "intro",
+  "title": "Introduction to Prompt Engineering",
+  "description": "Learn the definition, importance in policy research, and basic principles of Prompt Engineering.",
+  "duration": "10 min",
+  "order": 1,
+  "content": "## What is Prompt Engineering?\n\nPrompt Engineering is the skill of **designing effective inputs (prompts) to get desired results from AI models**.\n\n### Why is it important for policy students?\n\nEven with the same AI model, the quality of policy analysis varies significantly depending on how you write the prompt.\n\n**Bad example:**\n```\nAnalyze climate policy\n```\n\n**Good example:**\n```\nAnalyze the European Union's Carbon Border Adjustment Mechanism (CBAM)\nusing Kingdon's Multiple Streams Framework.\nInclude: problem stream, policy stream, political stream, and policy window.\nTarget audience: Master's students in public policy.\n```\n\n### AI Applications in Policy Research\n\n- **Literature Review**: Summarizing policy documents and extracting key arguments\n- **Policy Briefs**: Drafting structured policy reports\n- **Stakeholder Analysis**: Analyzing policy impacts from multiple perspectives\n- **Comparative Policy Analysis**: Cross-country and temporal policy comparisons\n\n### 3 Principles of Good Prompts\n\n1. **Clarity**: Specify analysis target, scope, and perspective\n2. **Context**: Provide theoretical frameworks and background information\n3. **Format**: Specify desired output format (table, bullet points, essay, etc.)\n\n### What You'll Learn\n\n- **Zero-shot Prompting**: Policy summaries, concept explanations\n- **Few-shot Prompting**: Consistent format for policy case analysis\n- **Chain of Thought**: Complex policy effect reasoning and causal analysis",
+  "examples": [
+    {
+      "title": "Policy Brief Writing",
+      "description": "An example of writing a policy brief with specific requirements.",
+      "prompt": "Please write a policy brief according to the following requirements:\n\n- Policy: EU Green Deal (2019)\n- Structure: Background, Objectives, Key Initiatives, Challenges, Assessment\n- Length: 2-3 sentences per section\n- Target audience: Master's students in development policy\n- Tone: Objective and analytical",
+      "expectedBehavior": "With clear requirements, AI writes a structured policy brief."
+    }
+  ],
+  "practice": {
+    "instruction": "Improve the simple prompt below to make it suitable for policy analysis.",
+    "starterPrompt": "Analyze ODA effectiveness",
+    "hints": [
+      "Which country or region's ODA?",
+      "Which sector (education, health, infrastructure)?",
+      "What analytical framework to apply?",
+      "Who is the analysis for? (academic paper, policy brief, presentation)"
+    ]
+  }
+}
+

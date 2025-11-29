@@ -1,0 +1,33 @@
+{
+  "slug": "zero-shot",
+  "title": "Zero-shot Prompting",
+  "description": "Learn how to request policy analysis tasks from AI with instructions only, without providing examples.",
+  "duration": "15 min",
+  "order": 2,
+  "content": "## What is Zero-shot Prompting?\n\nZero-shot Prompting is a method of requesting desired results from AI **without providing examples**, using only task instructions.\n\n\"Zero-shot\" means \"zero examples.\"\n\n### When to use it in policy research?\n\n- Summarizing policy documents and extracting key arguments\n- Defining and explaining policy concepts\n- Stakeholder listing and position analysis\n- Policy terminology explanation\n- Applying basic frameworks (SWOT, PEST, etc.)\n\n### Policy Analysis Examples\n\n**Policy Summary:**\n```\nSummarize the key points of this World Bank report in 3 bullet points.\nTarget audience: Policy analysts at the Ministry of Finance.\n\n[Report content]\n```\n\n**Stakeholder Analysis:**\n```\nAnalyze the key stakeholders for 'Universal Basic Income' policy.\n\nFormat as:\n| Stakeholder | Position | Key Concerns | Influence |\n```\n\n**Development Indicator Interpretation:**\n```\nInterpret the HDI changes for Rwanda and\nderive policy implications.\n- HDI: 0.534 (2021) → 0.548 (2023)\n```\n\n### How to Write Effective Zero-shot Prompts\n\n1. **Specify analysis target clearly**: Which policy, country, time period\n2. **Define output format**: Table, bullet points, essay format\n3. **State target audience**: Policymakers, researchers, students\n4. **Set length constraints**: Number of sentences, words\n\n### Limitations\n\n- Not suitable for complex multi-step analysis\n- Few-shot is more effective for consistent format repetitive tasks\n- May need examples when applying specific analytical frameworks",
+  "examples": [
+    {
+      "title": "Policy Stakeholder Analysis",
+      "description": "A Zero-shot example performing stakeholder analysis, a core element of policy analysis.",
+      "prompt": "Analyze the key stakeholders for the 'Carbon Border Adjustment Mechanism (CBAM)' in the EU.\n\nFormat as:\n| Stakeholder | Position | Key Concerns | Influence Level |\n\nInclude at least 5 stakeholder groups.",
+      "expectedBehavior": "AI analyzes various stakeholders including EU industries, trading partners, environmental groups, and consumers in table format."
+    },
+    {
+      "title": "Development Indicator Interpretation",
+      "description": "An example of interpreting international development indicators and deriving policy implications.",
+      "prompt": "Interpret the following country's HDI (Human Development Index) data and\nderive policy implications.\n\n- Country: Rwanda\n- HDI: 0.534 (2021) → 0.548 (2023)\n- Components: Life expectancy 66.1 years, Mean years of schooling 4.4, GNI per capita $2,210\n\nPlease reference UNDP's HDI classification criteria in your analysis.",
+      "expectedBehavior": "AI analyzes the meaning of HDI changes, contribution of each component, and future policy directions."
+    }
+  ],
+  "practice": {
+    "instruction": "Improve the Zero-shot prompt below to get more useful policy analysis results.",
+    "starterPrompt": "Explain SDG progress",
+    "hints": [
+      "Which SDG goal specifically?",
+      "Which country or region?",
+      "What time period for comparison?",
+      "What format do you want? (overview, comparison table, detailed analysis)"
+    ]
+  }
+}
+

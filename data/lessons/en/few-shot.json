@@ -1,0 +1,33 @@
+{
+  "slug": "few-shot",
+  "title": "Few-shot Prompting",
+  "description": "Learn how to teach AI consistent policy analysis patterns through a few examples.",
+  "duration": "15 min",
+  "order": 3,
+  "content": "## What is Few-shot Prompting?\n\nFew-shot Prompting is a method that **provides a few examples** to guide AI to learn desired patterns.\n\n\"Few-shot\" means \"a small number of examples.\"\n\n### Zero-shot vs Few-shot\n\n| Type | Zero-shot | Few-shot |\n|------|-----------|----------|\n| Examples | None | 2-5 provided |\n| Best for | Simple summaries, concept explanation | Policy case comparison, consistent format analysis |\n| Policy use | Stakeholder analysis | Multi-country policy comparison |\n\n### When to use it in policy research?\n\n- Comparing policies across countries with **consistent criteria**\n- Summarizing policy documents in **uniform format**\n- **Classifying and analyzing** policy success/failure cases\n- Organizing research abstracts in **standardized structure**\n\n### Few-shot Prompt Structure\n\n```\n[Task description]\n\nExample 1:\nPolicy: [Policy A]\nAnalysis: [Analysis Result A]\n\nExample 2:\nPolicy: [Policy B]\nAnalysis: [Analysis Result B]\n\nActual task:\nPolicy: [Policy to analyze]\nAnalysis:\n```\n\n### Tips for Choosing Good Examples\n\n1. **Diversity**: Include developed/developing countries, success/failure cases\n2. **Representativeness**: Choose typical policy cases\n3. **Consistency**: Maintain the same analytical framework\n4. **Right amount**: 2-5 is appropriate (too many causes confusion)\n\n### Cautions\n\n- Example quality determines analysis quality\n- Biased examples lead to biased analysis\n- Examples from different policy contexts cause confusion",
+  "examples": [
+    {
+      "title": "Policy Case Classification (Success/Failure Factors)",
+      "description": "An example of teaching policy success/failure analysis patterns through examples.",
+      "prompt": "Analyze the following policy cases and analyze the new case in the same format.\n\nExample 1:\nPolicy: Rwanda Health Insurance Reform (Mutuelles de Santé)\nResult: Success\nKey Factors: Strong political will, community-based approach, phased expansion\nLesson: Community participation is key to universal health coverage\n\nExample 2:\nPolicy: Venezuela Price Control Policy (2003-2013)\nResult: Failure\nKey Factors: Market distortion, supply shortages, black market formation\nLesson: Price controls must consider supply-side incentives\n\nPolicy to analyze:\nPolicy: Brazil's Bolsa Família Program\nResult:\nKey Factors:\nLesson:",
+      "expectedBehavior": "Learns from example patterns and analyzes the Brazil case in the same structure."
+    },
+    {
+      "title": "Standardized Policy Brief",
+      "description": "A Few-shot example for writing policy briefs in consistent format.",
+      "prompt": "Write a policy brief following this format.\n\nExample:\nPolicy: EU Green Deal (2019)\n---\n[Background] Climate emergency + Economic transformation need\n[Objective] Climate neutrality by 2050, €1 trillion investment\n[Key Initiatives] ①Clean energy ②Sustainable industry ③Building renovation\n[Challenges] Just transition, financing gap, member state alignment\n[Assessment] Ambitious but implementation challenges remain\n---\n\nPolicy to write: China's Belt and Road Initiative (BRI)",
+      "expectedBehavior": "Structures and analyzes BRI policy in the same format."
+    }
+  ],
+  "practice": {
+    "instruction": "Write a Few-shot prompt to compare and analyze country-level SDG policies.",
+    "starterPrompt": "Analyze SDG 4 (Quality Education) policies by country in the following format.\n\nExample:\nCountry: Finland\nPolicy: Free public education and teacher professionalization\nApproach: Equity-focused, minimal standardized testing\nOutcome: Top PISA rankings, high educational equity\n\nCountry to analyze: South Korea\nPolicy:\nApproach:\nOutcome:",
+    "hints": [
+      "What if you add one more example? (e.g., Singapore)",
+      "Can you add more analysis items? (e.g., budget, challenges)",
+      "Include a developing country case.",
+      "Specify concrete outcome indicators."
+    ]
+  }
+}
+

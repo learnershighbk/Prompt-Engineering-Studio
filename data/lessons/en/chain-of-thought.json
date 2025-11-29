@@ -1,0 +1,33 @@
+{
+  "slug": "chain-of-thought",
+  "title": "Chain of Thought (CoT)",
+  "description": "Learn how to analyze complex policy effects by inducing step-by-step reasoning.",
+  "duration": "15 min",
+  "order": 4,
+  "content": "## What is Chain of Thought (CoT)?\n\nChain of Thought is a technique that **guides AI to explain its thinking process step by step** to analyze complex policy problems.\n\nIt means \"chain of reasoning,\" making the AI explicitly generate intermediate reasoning steps.\n\n### Why is it effective for policy analysis?\n\n- **Tracing causal relationships** of policy effects\n- **Predicting reactions** of multiple stakeholders\n- Identifying **unintended consequences**\n- Reducing logical errors and **enabling verification**\n- **Breaking down** complex policy problems into smaller steps\n\n### Basic Usage\n\n**Method 1: Direct request**\n```\nPlease analyze the effects of this policy step by step.\n```\n\n**Method 2: Add \"Let's think step by step\"**\n```\nAnalyze the impact of minimum wage increase on employment.\nLet's think step by step.\n```\n\n**Method 3: Specify analysis steps**\n```\nPlease analyze according to these steps:\nStep 1: Identify direct policy effects\nStep 2: Predict stakeholder reactions\nStep 3: Analyze secondary and ripple effects\nStep 4: Infer long-term equilibrium\nStep 5: Comprehensive evaluation and recommendations\n```\n\n### Zero-shot CoT vs Few-shot CoT\n\n| Type | Zero-shot CoT | Few-shot CoT |\n|------|---------------|---------------|\n| Method | Add \"step by step\" keyword | Provide reasoning examples |\n| Simplicity | Very simple | Requires writing examples |\n| Best for | General policy analysis | Specific analytical frameworks |\n\n### Policy Applications\n\n- **Policy effect reasoning**: Causal chain analysis\n- **Cost-benefit analysis**: Step-by-step cost/benefit identification\n- **Stakeholder analysis**: Sequential prediction of group reactions\n- **Scenario analysis**: Conditional outcome reasoning\n- **Policy alternative evaluation**: Systematic criteria-based comparison",
+  "examples": [
+    {
+      "title": "Policy Effect Causal Analysis (Zero-shot CoT)",
+      "description": "An example of analyzing policy effect causality by adding \"step by step\" keyword.",
+      "prompt": "Analyze the expected effects of the EU implementing\n'Carbon Border Adjustment Mechanism (CBAM)' step by step.\n\nInclude these perspectives:\n- EU industries\n- Trading partner countries\n- Global trade system\n- Climate goals\n\nClearly explain the causal relationships at each step,\nand consider unintended consequences.\n\nLet's think step by step.",
+      "expectedBehavior": "AI analyzes causal relationships step by step: carbon pricing → import cost changes → trade pattern shifts, etc."
+    },
+    {
+      "title": "Policy Alternative Comparison (Few-shot CoT)",
+      "description": "Showing how to compare policy alternatives step by step through an example.",
+      "prompt": "Compare policy alternatives step by step as in the following example.\n\nExample:\nProblem: Urban traffic congestion\nAlternative: Congestion pricing\n\nAnalysis:\nStep 1 (Direct effect): Toll charges → Increased car usage cost\nStep 2 (Behavioral change): Some drivers switch to public transit, adjust commute times\nStep 3 (System effect): Reduced congestion, improved travel speed, increased public transit demand\nStep 4 (Secondary effect): Possible public transit crowding, equity concerns raised\nStep 5 (Long-term effect): Urban structure changes, possible live-work proximity\n\nOverall evaluation: High effectiveness but equity measures needed\n\n---\nPolicy to analyze:\nProblem: Rural poverty in developing countries\nAlternative: Conditional Cash Transfer (CCT) program\n\nAnalysis:",
+      "expectedBehavior": "Analyzes CCT policy effects in 5 steps following the example format."
+    }
+  ],
+  "practice": {
+    "instruction": "Use Chain of Thought to analyze a complex policy problem.",
+    "starterPrompt": "A developing country is considering implementing 'Universal Basic Income (UBI)'.\nAnalyze the expected effects of this policy step by step.\n\nConditions to consider:\n- Country: Population 50 million, GDP per capita $3,000, informal economy 40%\n- Proposed UBI: $50/month (about 50% of poverty line)\n- Funding: Consolidating existing welfare programs + wealth tax\n\nLet's think step by step.",
+    "hints": [
+      "How would you analyze fiscal sustainability?",
+      "What's the causal chain for labor supply effects?",
+      "How does it interact with the informal economy?",
+      "Consider political economy perspectives as well."
+    ]
+  }
+}
+
