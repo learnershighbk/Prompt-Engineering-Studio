@@ -31,7 +31,8 @@
     "playground": "Playground",
     "language": "언어",
     "logout": "로그아웃",
-    "learn": "학습"
+    "learn": "학습",
+    "toggleTheme": "테마 전환"
   },
   "learn": {
     "title": "학습 목록",

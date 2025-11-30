@@ -64,7 +64,7 @@ export default function LessonContent({
 
   return (
     <div className={cn("space-y-8", className)}>
-      <article className="prose prose-gray dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3 prose-p:text-gray-700 prose-p:leading-7 prose-p:mb-4 prose-strong:text-gray-900 prose-strong:font-semibold prose-ul:my-4 prose-li:text-gray-700 prose-li:leading-7 prose-pre:bg-transparent prose-code:text-inherit [&_pre_code_*]:!bg-transparent [&_pre_code_*]:!text-white [&_pre_code_*]:!border-0 [&_pre_code_mark]:!bg-transparent [&_pre_code_mark]:!text-white [&_pre_code_mark]:!border-0 [&_pre_code_span]:!bg-transparent [&_pre_code_span]:!text-white [&_pre_code_span]:!border-0 [&_pre_code_strong]:!bg-transparent [&_pre_code_strong]:!text-white [&_pre_code_strong]:!border-0 [&_pre_code_em]:!bg-transparent [&_pre_code_em]:!text-white [&_pre_code_em]:!border-0">
+      <article className="prose prose-gray dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-foreground dark:prose-headings:text-foreground prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3 prose-p:text-foreground dark:prose-p:text-foreground prose-p:leading-7 prose-p:mb-4 prose-strong:text-foreground dark:prose-strong:text-foreground prose-strong:font-semibold prose-ul:my-4 prose-li:text-foreground dark:prose-li:text-foreground prose-li:leading-7 prose-pre:bg-transparent prose-code:text-inherit [&_pre_code_*]:!bg-transparent [&_pre_code_*]:!text-white [&_pre_code_*]:!border-0 [&_pre_code_mark]:!bg-transparent [&_pre_code_mark]:!text-white [&_pre_code_mark]:!border-0 [&_pre_code_span]:!bg-transparent [&_pre_code_span]:!text-white [&_pre_code_span]:!border-0 [&_pre_code_strong]:!bg-transparent [&_pre_code_strong]:!text-white [&_pre_code_strong]:!border-0 [&_pre_code_em]:!bg-transparent [&_pre_code_em]:!text-white [&_pre_code_em]:!border-0">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
@@ -230,27 +230,27 @@ export default function LessonContent({
               );
             },
             h2: ({ children, ...props }) => (
-              <h2 className="text-2xl font-bold text-gray-900 mt-10 mb-5 pb-2 border-b border-gray-200" {...props}>
+              <h2 className="text-2xl font-bold text-foreground mt-10 mb-5 pb-2 border-b border-border" {...props}>
                 {children}
               </h2>
             ),
             h3: ({ children, ...props }) => (
-              <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-4" {...props}>
+              <h3 className="text-xl font-semibold text-foreground mt-8 mb-4" {...props}>
                 {children}
               </h3>
             ),
             ul: ({ children, ...props }) => (
-              <ul className="my-5 space-y-2 list-disc list-inside text-gray-700" {...props}>
+              <ul className="my-5 space-y-2 list-disc list-inside text-foreground" {...props}>
                 {children}
               </ul>
             ),
             li: ({ children, ...props }) => (
-              <li className="leading-7 text-gray-700" {...props}>
+              <li className="leading-7 text-foreground" {...props}>
                 {children}
               </li>
             ),
             strong: ({ children, ...props }) => (
-              <strong className="font-semibold text-gray-900" {...props}>
+              <strong className="font-semibold text-foreground" {...props}>
                 {children}
               </strong>
             ),
@@ -264,7 +264,7 @@ export default function LessonContent({
         <section className="space-y-4 mt-10 mb-6">
           <div className="flex items-center gap-2 mb-4">
             <Lightbulb className="h-6 w-6 text-yellow-500" />
-            <h3 className="text-xl font-semibold text-gray-900">
+            <h3 className="text-xl font-semibold text-foreground">
               {language === "ko" ? "예제" : "Examples"}
             </h3>
           </div>
@@ -303,10 +303,10 @@ function ExampleCard({ example, onTry }: ExampleCardProps) {
   }, [example.prompt]);
 
   return (
-    <Card className="border-2 border-gray-200 shadow-sm">
+    <Card className="border-2 border-border shadow-sm">
       <CardHeader className="pb-3">
-        <CardTitle className="text-lg font-semibold text-gray-900">{example.title}</CardTitle>
-        <p className="text-sm text-gray-600 mt-1">{example.description}</p>
+        <CardTitle className="text-lg font-semibold text-foreground">{example.title}</CardTitle>
+        <p className="text-sm text-muted-foreground mt-1">{example.description}</p>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="relative group">
@@ -350,11 +350,11 @@ function ExampleCard({ example, onTry }: ExampleCardProps) {
                 e.stopPropagation();
                 handleCopy();
               }}
-              className="h-8 px-3 bg-white/95 hover:bg-white text-gray-700 shadow-md border border-gray-200"
+              className="h-8 px-3 bg-background/95 dark:bg-card/95 hover:bg-background dark:hover:bg-card text-foreground shadow-md border border-border"
             >
               {copied ? (
                 <>
-                  <Check className="h-4 w-4 mr-1 text-green-600" />
+                  <Check className="h-4 w-4 mr-1 text-green-600 dark:text-green-400" />
                   {t("common.copied")}
                 </>
               ) : (
@@ -371,7 +371,7 @@ function ExampleCard({ example, onTry }: ExampleCardProps) {
             variant="outline"
             size="sm"
             onClick={() => onTry(example.prompt)}
-            className="w-full border-2 hover:bg-gray-50"
+            className="w-full border-2 hover:bg-muted"
           >
             {language === "ko" ? "실습에서 사용하기" : "Use in Practice"}
           </Button>

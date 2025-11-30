@@ -71,7 +71,7 @@ export default function LanguageToggle({ className }: LanguageToggleProps) {
             "px-2.5 py-1 text-sm font-medium rounded-md transition-colors",
             locale === loc
               ? "bg-background text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
+              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
           )}
         >
           {loc === "ko" ? "KOR" : "ENG"}

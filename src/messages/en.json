@@ -31,7 +31,8 @@
     "playground": "Playground",
     "language": "Language",
     "logout": "Logout",
-    "learn": "Learn"
+    "learn": "Learn",
+    "toggleTheme": "Toggle theme"
   },
   "learn": {
     "title": "Lessons",

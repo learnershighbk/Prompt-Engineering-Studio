@@ -115,24 +115,25 @@
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    /* #17232E 기반 다크모드 색상 팔레트 */
+    --background: 209 33% 13.5%; /* #17232E */
+    --foreground: 0 0% 90%; /* #e5e5e5 */
+    --card: 209 33% 15.5%; /* #17232E보다 약간 밝게 */
+    --card-foreground: 0 0% 90%;
+    --popover: 209 33% 15.5%;
+    --popover-foreground: 0 0% 90%;
     --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --primary-foreground: 209 33% 13.5%;
+    --secondary: 209 33% 20%; /* #17232E보다 밝게 */
+    --secondary-foreground: 0 0% 90%;
+    --muted: 209 33% 20%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 209 33% 20%;
+    --accent-foreground: 0 0% 90%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
+    --border: 209 33% 25%; /* #17232E 기반 테두리 */
+    --input: 209 33% 20%;
     --ring: 0 0% 83.1%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -148,6 +149,24 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* 스크롤바 스타일 개선 */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
   }
   
   /* 코드 블록 내부의 흰색 테두리 제거 */

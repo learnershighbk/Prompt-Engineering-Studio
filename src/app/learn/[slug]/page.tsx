@@ -79,7 +79,7 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
 
   if (authLoading || !languageLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <LoadingSpinner size="lg" />
       </div>
     );
@@ -91,11 +91,11 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
 
   if (!lesson) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-background">
         <Header showBackButton studentId={studentId || undefined} />
         <main className="container py-12">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            <h1 className="text-2xl font-bold text-foreground mb-4">
               {language === "ko" ? "학습을 찾을 수 없습니다" : "Lesson not found"}
             </h1>
             <Link href="/learn">
@@ -110,25 +110,25 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header showBackButton studentId={studentId || undefined} />
 
       <main className="flex-1 container py-8 pb-32 md:pb-32">
         <div className="mb-8">
-          <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
-            <Link href="/learn" className="hover:text-gray-900 transition-colors">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+            <Link href="/learn" className="hover:text-foreground transition-colors">
               {t("learn.title")}
             </Link>
             <ChevronRight className="h-4 w-4" />
-            <span className="text-gray-900 font-medium">{lesson.title}</span>
+            <span className="text-foreground font-medium">{lesson.title}</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{lesson.title}</h1>
-          <p className="text-gray-600 text-lg">{lesson.description}</p>
+          <h1 className="text-3xl font-bold text-foreground mb-2">{lesson.title}</h1>
+          <p className="text-muted-foreground text-lg">{lesson.description}</p>
         </div>
 
         {/* Desktop Layout */}
         <div className="hidden md:grid md:grid-cols-2 md:gap-6 md:max-h-[calc(100vh-320px)] md:min-h-[600px]">
-          <div className="overflow-auto rounded-lg border border-gray-200 bg-white p-8 pb-32 shadow-sm">
+          <div className="overflow-auto rounded-lg border border-border bg-card p-8 pb-32 shadow-sm">
             <LessonContent
               content={lesson.content}
               examples={lesson.examples}
@@ -137,21 +137,21 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
           </div>
 
           <div className="flex flex-col gap-4 min-h-0 overflow-hidden">
-            <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm flex-shrink-0">
-              <h2 className="text-xl font-bold text-gray-900 mb-2">
+            <div className="bg-card rounded-lg border border-border p-6 shadow-sm flex-shrink-0">
+              <h2 className="text-xl font-bold text-foreground mb-2">
                 {language === "ko" ? "프롬프트 실습 Playground" : "Prompt Practice Playground"}
               </h2>
-              <p className="text-sm text-gray-600 mb-4">
+              <p className="text-sm text-muted-foreground mb-4">
                 {language === "ko"
                   ? "다음 프롬프트를 앞서 배운 내용을 토대로 더 좋은 품질의 결과를 도출 할 수 있도록 수정해보세요."
                   : "Modify the following prompt to derive better quality results based on what you've learned."}
               </p>
               {starterPrompt && (
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                  <p className="text-xs font-medium text-blue-900 mb-2">
+                <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-4">
+                  <p className="text-xs font-medium text-blue-900 dark:text-blue-300 mb-2">
                     {language === "ko" ? "프롬프트 예시:" : "Example Prompt:"}
                   </p>
-                  <p className="text-sm text-blue-800 font-mono whitespace-pre-wrap">
+                  <p className="text-sm text-blue-800 dark:text-blue-200 font-mono whitespace-pre-wrap">
                     {starterPrompt}
                   </p>
                 </div>
@@ -174,18 +174,18 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
                 className="flex-1 min-h-0 overflow-auto"
               />
               {chatError && (
-                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex-shrink-0">
-                  <p className="text-sm text-red-600">{chatError}</p>
+                <div className="mt-4 p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg flex-shrink-0">
+                  <p className="text-sm text-red-600 dark:text-red-400">{chatError}</p>
                 </div>
               )}
             </div>
 
             {lesson.practice?.hints && (
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex-shrink-0">
+              <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4 flex-shrink-0">
                 <button
                   type="button"
                   onClick={() => setShowHints(!showHints)}
-                  className="flex items-center gap-2 text-sm font-medium text-amber-800 w-full"
+                  className="flex items-center gap-2 text-sm font-medium text-amber-800 dark:text-amber-300 w-full"
                 >
                   <Lightbulb className="h-4 w-4" />
                   {language === "ko" ? "힌트 보기" : "Show hints"}
@@ -197,10 +197,10 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
                   />
                 </button>
                 {showHints && (
-                  <ul className="mt-3 space-y-1.5 text-sm text-amber-700">
+                  <ul className="mt-3 space-y-1.5 text-sm text-amber-700 dark:text-amber-300">
                     {lesson.practice.hints.map((hint, index) => (
                       <li key={index} className="flex items-start gap-2">
-                        <span className="text-amber-500">•</span>
+                        <span className="text-amber-500 dark:text-amber-400">•</span>
                         {hint}
                       </li>
                     ))}
@@ -209,7 +209,7 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
               </div>
             )}
 
-            <div className="bg-white border border-gray-200 rounded-lg p-4 flex-shrink-0">
+            <div className="bg-card border border-border rounded-lg p-4 flex-shrink-0">
               <label className="flex items-center gap-2 cursor-pointer">
                 <Checkbox
                   checked={completed}
@@ -243,7 +243,7 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
             </TabsList>
 
             <TabsContent value="content" className="mt-0">
-              <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm pb-32">
+              <div className="rounded-lg border border-border bg-card p-6 shadow-sm pb-32">
                 <LessonContent
                   content={lesson.content}
                   examples={lesson.examples}
@@ -253,21 +253,21 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
             </TabsContent>
 
             <TabsContent value="practice" className="mt-0 space-y-4 pb-32">
-              <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-                <h2 className="text-xl font-bold text-gray-900 mb-2">
+              <div className="bg-card rounded-lg border border-border p-6 shadow-sm">
+                <h2 className="text-xl font-bold text-foreground mb-2">
                   {language === "ko" ? "프롬프트 실습 Playground" : "Prompt Practice Playground"}
                 </h2>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className="text-sm text-muted-foreground mb-4">
                   {language === "ko"
                     ? "다음 프롬프트를 앞서 배운 내용을 토대로 더 좋은 품질의 결과를 도출 할 수 있도록 수정해보세요."
                     : "Modify the following prompt to derive better quality results based on what you've learned."}
                 </p>
                 {starterPrompt && (
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                    <p className="text-xs font-medium text-blue-900 mb-2">
+                  <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-4">
+                    <p className="text-xs font-medium text-blue-900 dark:text-blue-300 mb-2">
                       {language === "ko" ? "프롬프트 예시:" : "Example Prompt:"}
                     </p>
-                    <p className="text-sm text-blue-800 font-mono whitespace-pre-wrap">
+                    <p className="text-sm text-blue-800 dark:text-blue-200 font-mono whitespace-pre-wrap">
                       {starterPrompt}
                     </p>
                   </div>
@@ -287,17 +287,17 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
               />
 
               {chatError && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-sm text-red-600">{chatError}</p>
+                <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
+                  <p className="text-sm text-red-600 dark:text-red-400">{chatError}</p>
                 </div>
               )}
 
               {lesson.practice?.hints && (
-                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
                   <button
                     type="button"
                     onClick={() => setShowHints(!showHints)}
-                    className="flex items-center gap-2 text-sm font-medium text-amber-800 w-full"
+                    className="flex items-center gap-2 text-sm font-medium text-amber-800 dark:text-amber-300 w-full"
                   >
                     <Lightbulb className="h-4 w-4" />
                     {language === "ko" ? "힌트 보기" : "Show hints"}
@@ -309,10 +309,10 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
                     />
                   </button>
                   {showHints && (
-                    <ul className="mt-3 space-y-1.5 text-sm text-amber-700">
+                    <ul className="mt-3 space-y-1.5 text-sm text-amber-700 dark:text-amber-300">
                       {lesson.practice.hints.map((hint, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <span className="text-amber-500">•</span>
+                          <span className="text-amber-500 dark:text-amber-400">•</span>
                           {hint}
                         </li>
                       ))}
@@ -321,7 +321,7 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
                 </div>
               )}
 
-              <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <div className="bg-card border border-border rounded-lg p-4">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <Checkbox
                     checked={completed}
@@ -339,7 +339,7 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
       </main>
 
       {/* Bottom Navigation - Fixed at bottom */}
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white z-40 shadow-lg">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-border bg-card z-40 shadow-lg">
         <div className="container py-4">
           <div className="hidden md:block">
             {/* Desktop: 2-column grid layout matching main content */}

@@ -35,7 +35,7 @@ export default function LessonCard({
           "relative overflow-hidden transition-all duration-200",
           "hover:shadow-md hover:border-primary/50",
           "group-focus-visible:ring-2 group-focus-visible:ring-ring group-focus-visible:ring-offset-2",
-          isCompleted && "border-green-500/30 bg-green-50/30",
+          isCompleted && "border-green-500/30 bg-green-50/30 dark:bg-green-950/20 dark:border-green-500/40",
           className
         )}
       >
@@ -63,7 +63,7 @@ export default function LessonCard({
             {isCompleted && (
               <Badge
                 variant="secondary"
-                className="bg-green-100 text-green-700 shrink-0"
+                className="bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 shrink-0"
               >
                 {t("learn.completed")}
               </Badge>

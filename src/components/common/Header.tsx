@@ -2,10 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, Beaker } from "lucide-react";
+import { ArrowLeft, Beaker, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import LanguageToggle from "./LanguageToggle";
+import ThemeToggle from "./ThemeToggle";
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
 
 interface HeaderProps {
   showBackButton?: boolean;
@@ -22,6 +25,7 @@ export default function Header({
 }: HeaderProps) {
   const router = useRouter();
   const t = useTranslations();
+  const { logout, isAuthenticated } = useAuth();
 
   return (
     <header
@@ -67,6 +71,19 @@ export default function Header({
             </Link>
           )}
 
+          {isAuthenticated && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={logout}
+              className="text-sm text-muted-foreground hover:text-foreground hidden sm:flex items-center gap-1.5"
+            >
+              <LogOut className="h-4 w-4" />
+              <span>{t("header.logout")}</span>
+            </Button>
+          )}
+
+          <ThemeToggle />
           <LanguageToggle />
         </div>
       </div>

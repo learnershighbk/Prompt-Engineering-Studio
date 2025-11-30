@@ -25,7 +25,7 @@ export default function LearnPage() {
 
   if (authLoading || !languageLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <LoadingSpinner size="lg" />
       </div>
     );
@@ -38,16 +38,16 @@ export default function LearnPage() {
   const lessons = getLessons(language);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-background">
       <Header showPlaygroundLink studentId={studentId || undefined} />
 
       <main className="container py-8">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-3xl font-bold tracking-tight text-foreground">
               {t("learn.title")}
             </h1>
-            <p className="text-gray-500">
+            <p className="text-muted-foreground">
               {language === "ko"
                 ? "정책 분석을 위한 Prompt Engineering 핵심 기법을 학습하세요"
                 : "Learn essential Prompt Engineering techniques for policy analysis"}
@@ -57,7 +57,7 @@ export default function LearnPage() {
           <ProgressBar
             completed={summary.completed}
             total={summary.total}
-            className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm"
+            className="bg-card rounded-lg border border-border p-4 shadow-sm"
           />
 
           <div className="grid gap-4 md:grid-cols-2">

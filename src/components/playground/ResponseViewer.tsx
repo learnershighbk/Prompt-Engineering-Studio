@@ -52,15 +52,15 @@ export default function ResponseViewer({
   return (
     <div
       className={cn(
-        "flex flex-col rounded-lg border-2 border-gray-300 bg-white shadow-sm",
+        "flex flex-col rounded-lg border-2 border-border bg-card shadow-sm",
         !hasHeightClass && "min-h-[200px]",
         className
       )}
     >
-      <div className="flex items-center justify-between px-4 py-3 border-b-2 border-gray-300 bg-gray-50">
+      <div className="flex items-center justify-between px-4 py-3 border-b-2 border-border bg-muted/50">
         <div className="flex items-center gap-2">
-          <MessageSquare className="h-4 w-4 text-gray-600" />
-          <span className="text-sm font-semibold text-gray-900">AI 응답</span>
+          <MessageSquare className="h-4 w-4 text-muted-foreground" />
+          <span className="text-sm font-semibold text-foreground">AI 응답</span>
           {isStreaming && (
             <span className="flex items-center gap-1.5">
               <span className="relative flex h-2 w-2">
@@ -96,11 +96,11 @@ export default function ResponseViewer({
         )}
       </div>
 
-      <div className="flex-1 overflow-auto p-6 pb-12 bg-white">
+      <div className="flex-1 overflow-auto p-6 pb-12 bg-card">
         {isEmpty ? (
           <div className="flex flex-col items-center justify-center h-full text-center">
-            <MessageSquare className="h-12 w-12 text-gray-300 mb-4" />
-            <p className="text-sm text-gray-500 max-w-[250px]">
+            <MessageSquare className="h-12 w-12 text-muted-foreground/50 mb-4" />
+            <p className="text-sm text-muted-foreground max-w-[250px]">
               {t("playground.emptyResponse")}
             </p>
           </div>

@@ -38,7 +38,7 @@ export default function PlaygroundPage() {
 
   if (authLoading || !languageLoaded) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <LoadingSpinner size="lg" />
       </div>
     );
@@ -49,7 +49,7 @@ export default function PlaygroundPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header showBackButton studentId={studentId || undefined} />
 
       <main className="flex-1 container py-6 flex flex-col">
@@ -59,7 +59,7 @@ export default function PlaygroundPage() {
               <Sparkles className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold text-foreground">
                 {t("playground.title")}
               </h1>
               <p className="text-sm text-muted-foreground">
@@ -74,10 +74,10 @@ export default function PlaygroundPage() {
         {/* Desktop Layout */}
         <div className="hidden md:grid md:grid-cols-2 md:gap-6 flex-1 min-h-0">
           <div className="flex flex-col min-h-[500px]">
-            <div className="bg-white rounded-lg border border-gray-200 p-4 flex-1 flex flex-col">
-              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100">
+            <div className="bg-card rounded-lg border border-border p-4 flex-1 flex flex-col">
+              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-border">
                 <div className="h-2 w-2 rounded-full bg-green-500" />
-                <span className="text-sm font-medium text-gray-700">
+                <span className="text-sm font-medium text-foreground">
                   {language === "ko" ? "프롬프트 입력" : "Prompt Input"}
                 </span>
               </div>
@@ -102,10 +102,10 @@ export default function PlaygroundPage() {
 
         {/* Mobile Layout */}
         <div className="md:hidden flex-1 flex flex-col gap-4">
-          <div className="bg-white rounded-lg border border-gray-200 p-4">
-            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-100">
+          <div className="bg-card rounded-lg border border-border p-4">
+            <div className="flex items-center gap-2 mb-4 pb-3 border-b border-border">
               <div className="h-2 w-2 rounded-full bg-green-500" />
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium text-foreground">
                 {language === "ko" ? "프롬프트 입력" : "Prompt Input"}
               </span>
             </div>
@@ -125,17 +125,17 @@ export default function PlaygroundPage() {
         </div>
 
         {error && (
-          <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-sm text-red-600">{error}</p>
+          <div className="mt-4 p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
+            <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
           </div>
         )}
 
         {/* Quick Tips */}
-        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h3 className="text-sm font-medium text-blue-800 mb-2">
+        <div className="mt-6 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+          <h3 className="text-sm font-medium text-blue-800 dark:text-blue-300 mb-2">
             {language === "ko" ? "💡 팁" : "💡 Tips"}
           </h3>
-          <ul className="text-sm text-blue-700 space-y-1">
+          <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
             {language === "ko" ? (
               <>
                 <li>• Ctrl/Cmd + Enter로 빠르게 실행할 수 있습니다</li>
