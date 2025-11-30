@@ -2,13 +2,21 @@
 
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, Beaker, LogOut } from "lucide-react";
+import { ArrowLeft, Beaker, LogOut, BookOpen, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import LanguageToggle from "./LanguageToggle";
 import ThemeToggle from "./ThemeToggle";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface HeaderProps {
   showBackButton?: boolean;
@@ -70,6 +78,68 @@ export default function Header({
               {t("header.playground")}
             </Link>
           )}
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1.5"
+              >
+                <BookOpen className="h-4 w-4" />
+                <span className="hidden sm:inline">{t("header.resources")}</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuLabel>{t("header.resourcesTitle")}</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <a
+                  href="https://learnprompting.org/docs/introduction?srsltid=AfmBOoosIhhBkEoBuSnFkZs2VfkcOj2wZLzdgkhLvXqgg_WVjaIvSJ2j"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  <span>{t("header.learnPromptingDoc")}</span>
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a
+                  href="https://services.google.com/fh/files/misc/gemini-for-google-workspace-prompting-guide-101.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  <span>{t("header.googleGeminiGuide")}</span>
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <a
+                  href="https://www.youtube.com/watch?v=7kBJerjnQTk&t=847s"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  <span>{t("header.youtubeVideo1")}</span>
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a
+                  href="https://www.youtube.com/watch?v=jNNatjruXx8&t=549s"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  <span>{t("header.youtubeVideo2")}</span>
+                </a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {isAuthenticated && (
             <Button

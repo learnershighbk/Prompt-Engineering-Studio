@@ -127,3 +127,6 @@ WHERE schemaname = 'public'
 2. ✅ 마이그레이션 적용
 3. ✅ API 키 확보 및 Vercel 환경변수 설정
 4. ✅ 배포 실행 (섹션 4)
+
+
+

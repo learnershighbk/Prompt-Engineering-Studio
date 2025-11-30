@@ -32,7 +32,13 @@
     "language": "Language",
     "logout": "Logout",
     "learn": "Learn",
-    "toggleTheme": "Toggle theme"
+    "toggleTheme": "Toggle theme",
+    "resources": "Resources",
+    "resourcesTitle": "Learning Resources",
+    "learnPromptingDoc": "Learn Prompting Documentation",
+    "googleGeminiGuide": "Google Gemini Guide (PDF)",
+    "youtubeVideo1": "YouTube Tutorial 1 by Google",
+    "youtubeVideo2": "YouTube Tutorial 2 by Google"
   },
   "learn": {
     "title": "Lessons",

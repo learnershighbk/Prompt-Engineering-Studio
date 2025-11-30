@@ -32,7 +32,13 @@
     "language": "언어",
     "logout": "로그아웃",
     "learn": "학습",
-    "toggleTheme": "테마 전환"
+    "toggleTheme": "테마 전환",
+    "resources": "리소스",
+    "resourcesTitle": "학습 리소스",
+    "learnPromptingDoc": "Learn Prompting 문서",
+    "googleGeminiGuide": "Google Gemini 가이드 (PDF)",
+    "youtubeVideo1": "YouTube Tutorial 1 by Google",
+    "youtubeVideo2": "YouTube Tutorial 2 by Google"
   },
   "learn": {
     "title": "학습 목록",
