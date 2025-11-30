@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -34,18 +34,33 @@ export default function ResponseViewer({
   }, [content]);
 
   const isEmpty = !content && !isStreaming;
+  
+  // 디버깅용
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      console.log("ResponseViewer props:", { 
+        contentLength: content?.length || 0, 
+        isStreaming, 
+        isEmpty,
+        hasContent: !!content
+      });
+    }
+  }, [content, isStreaming, isEmpty]);
 
+  const hasHeightClass = className?.includes("h-full") || className?.includes("min-h-") || className?.includes("h-");
+  
   return (
     <div
       className={cn(
-        "flex flex-col h-full rounded-lg border border-border bg-muted/30",
+        "flex flex-col rounded-lg border-2 border-gray-300 bg-white shadow-sm",
+        !hasHeightClass && "min-h-[200px]",
         className
       )}
     >
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+      <div className="flex items-center justify-between px-4 py-3 border-b-2 border-gray-300 bg-gray-50">
         <div className="flex items-center gap-2">
-          <MessageSquare className="h-4 w-4 text-muted-foreground" />
-          <span className="text-sm font-medium">AI 응답</span>
+          <MessageSquare className="h-4 w-4 text-gray-600" />
+          <span className="text-sm font-semibold text-gray-900">AI 응답</span>
           {isStreaming && (
             <span className="flex items-center gap-1.5">
               <span className="relative flex h-2 w-2">
@@ -81,16 +96,16 @@ export default function ResponseViewer({
         )}
       </div>
 
-      <div className="flex-1 overflow-auto p-4">
+      <div className="flex-1 overflow-auto p-6 pb-12 bg-white">
         {isEmpty ? (
           <div className="flex flex-col items-center justify-center h-full text-center">
-            <MessageSquare className="h-12 w-12 text-muted-foreground/40 mb-4" />
-            <p className="text-sm text-muted-foreground max-w-[250px]">
+            <MessageSquare className="h-12 w-12 text-gray-300 mb-4" />
+            <p className="text-sm text-gray-500 max-w-[250px]">
               {t("playground.emptyResponse")}
             </p>
           </div>
         ) : (
-          <div className="prose prose-gray dark:prose-invert prose-sm max-w-none">
+          <div className="prose prose-gray dark:prose-invert prose-sm max-w-none pb-8">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{

@@ -34,7 +34,7 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
   const router = useRouter();
   const { userId, studentId, isAuthenticated, isLoading: authLoading } = useAuth();
   const { isCompleted, markComplete, isLoading: progressLoading } = useProgress(userId);
-  const { response, isLoading: chatLoading, sendPrompt, reset } = useChat();
+  const { response, isLoading: chatLoading, error: chatError, sendPrompt, reset } = useChat();
   const { language, t, isLoaded: languageLoaded } = useLanguage();
 
   const [prompt, setPrompt] = useState("");
@@ -52,12 +52,6 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
     }
   }, [authLoading, isAuthenticated, router]);
 
-  useEffect(() => {
-    if (lesson?.practice?.starterPrompt && !prompt) {
-      setPrompt(lesson.practice.starterPrompt);
-    }
-  }, [lesson, prompt]);
-
   const handleTryExample = (examplePrompt: string) => {
     setPrompt(examplePrompt);
     setActiveTab("practice");
@@ -69,6 +63,13 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
       sendPrompt(prompt);
     }
   };
+
+  const handleReset = () => {
+    setPrompt("");
+    reset();
+  };
+
+  const starterPrompt = lesson?.practice?.starterPrompt || "";
 
   const handleMarkComplete = () => {
     if (!completed) {
@@ -112,7 +113,7 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header showBackButton studentId={studentId || undefined} />
 
-      <main className="flex-1 container py-8">
+      <main className="flex-1 container py-8 pb-32 md:pb-32">
         <div className="mb-8">
           <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
             <Link href="/learn" className="hover:text-gray-900 transition-colors">
@@ -126,8 +127,8 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
         </div>
 
         {/* Desktop Layout */}
-        <div className="hidden md:grid md:grid-cols-2 md:gap-6 md:h-[calc(100vh-280px)]">
-          <div className="overflow-auto rounded-lg border border-gray-200 bg-white p-8 shadow-sm">
+        <div className="hidden md:grid md:grid-cols-2 md:gap-6 md:max-h-[calc(100vh-320px)] md:min-h-[600px]">
+          <div className="overflow-auto rounded-lg border border-gray-200 bg-white p-8 pb-32 shadow-sm">
             <LessonContent
               content={lesson.content}
               examples={lesson.examples}
@@ -135,27 +136,52 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
             />
           </div>
 
-          <div className="flex flex-col gap-4 min-h-0">
-            <div className="flex-1 min-h-0 flex flex-col">
-              <PromptEditor
-                value={prompt}
-                onChange={setPrompt}
-                onSubmit={handleExecute}
-                isLoading={chatLoading}
-                className="h-[40%]"
-              />
+          <div className="flex flex-col gap-4 min-h-0 overflow-hidden">
+            <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm flex-shrink-0">
+              <h2 className="text-xl font-bold text-gray-900 mb-2">
+                {language === "ko" ? "프롬프트 실습 Playground" : "Prompt Practice Playground"}
+              </h2>
+              <p className="text-sm text-gray-600 mb-4">
+                {language === "ko"
+                  ? "다음 프롬프트를 앞서 배운 내용을 토대로 더 좋은 품질의 결과를 도출 할 수 있도록 수정해보세요."
+                  : "Modify the following prompt to derive better quality results based on what you've learned."}
+              </p>
+              {starterPrompt && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                  <p className="text-xs font-medium text-blue-900 mb-2">
+                    {language === "ko" ? "프롬프트 예시:" : "Example Prompt:"}
+                  </p>
+                  <p className="text-sm text-blue-800 font-mono whitespace-pre-wrap">
+                    {starterPrompt}
+                  </p>
+                </div>
+              )}
+              <div className="h-[300px] flex flex-col">
+                <PromptEditor
+                  value={prompt}
+                  onChange={setPrompt}
+                  onSubmit={handleExecute}
+                  isLoading={chatLoading}
+                  className="flex-1"
+                />
+              </div>
             </div>
 
-            <div className="flex-1 min-h-0">
+            <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
               <ResponseViewer
                 content={response}
                 isStreaming={chatLoading}
-                className="h-full"
+                className="flex-1 min-h-0 overflow-auto"
               />
+              {chatError && (
+                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg flex-shrink-0">
+                  <p className="text-sm text-red-600">{chatError}</p>
+                </div>
+              )}
             </div>
 
             {lesson.practice?.hints && (
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex-shrink-0">
                 <button
                   type="button"
                   onClick={() => setShowHints(!showHints)}
@@ -182,6 +208,19 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
                 )}
               </div>
             )}
+
+            <div className="bg-white border border-gray-200 rounded-lg p-4 flex-shrink-0">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <Checkbox
+                  checked={completed}
+                  onCheckedChange={handleMarkComplete}
+                  disabled={progressLoading || completed}
+                />
+                <span className="text-sm font-medium">
+                  {completed ? t("learn.completed") : t("learn.markComplete")}
+                </span>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -204,7 +243,7 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
             </TabsList>
 
             <TabsContent value="content" className="mt-0">
-              <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+              <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm pb-32">
                 <LessonContent
                   content={lesson.content}
                   examples={lesson.examples}
@@ -213,19 +252,45 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
               </div>
             </TabsContent>
 
-            <TabsContent value="practice" className="mt-0 space-y-4">
-              <PromptEditor
-                value={prompt}
-                onChange={setPrompt}
-                onSubmit={handleExecute}
-                isLoading={chatLoading}
-              />
+            <TabsContent value="practice" className="mt-0 space-y-4 pb-32">
+              <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+                <h2 className="text-xl font-bold text-gray-900 mb-2">
+                  {language === "ko" ? "프롬프트 실습 Playground" : "Prompt Practice Playground"}
+                </h2>
+                <p className="text-sm text-gray-600 mb-4">
+                  {language === "ko"
+                    ? "다음 프롬프트를 앞서 배운 내용을 토대로 더 좋은 품질의 결과를 도출 할 수 있도록 수정해보세요."
+                    : "Modify the following prompt to derive better quality results based on what you've learned."}
+                </p>
+                {starterPrompt && (
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                    <p className="text-xs font-medium text-blue-900 mb-2">
+                      {language === "ko" ? "프롬프트 예시:" : "Example Prompt:"}
+                    </p>
+                    <p className="text-sm text-blue-800 font-mono whitespace-pre-wrap">
+                      {starterPrompt}
+                    </p>
+                  </div>
+                )}
+                <PromptEditor
+                  value={prompt}
+                  onChange={setPrompt}
+                  onSubmit={handleExecute}
+                  isLoading={chatLoading}
+                />
+              </div>
 
               <ResponseViewer
                 content={response}
                 isStreaming={chatLoading}
-                className="min-h-[300px]"
+                className="w-full min-h-[200px]"
               />
+
+              {chatError && (
+                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-sm text-red-600">{chatError}</p>
+                </div>
+              )}
 
               {lesson.practice?.hints && (
                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
@@ -255,58 +320,91 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
                   )}
                 </div>
               )}
+
+              <div className="bg-white border border-gray-200 rounded-lg p-4">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <Checkbox
+                    checked={completed}
+                    onCheckedChange={handleMarkComplete}
+                    disabled={progressLoading || completed}
+                  />
+                  <span className="text-sm font-medium">
+                    {completed ? t("learn.completed") : t("learn.markComplete")}
+                  </span>
+                </label>
+              </div>
             </TabsContent>
           </Tabs>
         </div>
       </main>
 
-      {/* Bottom Navigation */}
-      <footer className="sticky bottom-0 border-t border-gray-200 bg-white py-4">
-        <div className="container">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              {prevLesson ? (
-                <Link href={`/learn/${prevLesson.slug}`}>
-                  <Button variant="outline" className="gap-2">
-                    <ChevronLeft className="h-4 w-4" />
-                    <span className="hidden sm:inline">{t("common.previous")}</span>
-                  </Button>
-                </Link>
-              ) : (
-                <div />
-              )}
+      {/* Bottom Navigation - Fixed at bottom */}
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white z-40 shadow-lg">
+        <div className="container py-4">
+          <div className="hidden md:block">
+            {/* Desktop: 2-column grid layout matching main content */}
+            <div className="grid grid-cols-2 gap-6">
+              <div className="flex justify-start">
+                {prevLesson ? (
+                  <Link href={`/learn/${prevLesson.slug}`}>
+                    <Button variant="outline" className="gap-2">
+                      <ChevronLeft className="h-4 w-4" />
+                      <span>{t("common.previous")}</span>
+                    </Button>
+                  </Link>
+                ) : null}
+              </div>
+              <div className="flex justify-end">
+                {nextLesson ? (
+                  <Link href={`/learn/${nextLesson.slug}`}>
+                    <Button className="gap-2">
+                      <span>{t("common.next")}</span>
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link href="/learn">
+                    <Button className="gap-2">
+                      <span>
+                        {language === "ko" ? "학습 완료" : "Complete"}
+                      </span>
+                    </Button>
+                  </Link>
+                )}
+              </div>
             </div>
-
-            <div className="flex items-center gap-3">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <Checkbox
-                  checked={completed}
-                  onCheckedChange={handleMarkComplete}
-                  disabled={progressLoading || completed}
-                />
-                <span className="text-sm font-medium">
-                  {completed ? t("learn.completed") : t("learn.markComplete")}
-                </span>
-              </label>
-            </div>
-
-            <div>
-              {nextLesson ? (
-                <Link href={`/learn/${nextLesson.slug}`}>
-                  <Button className="gap-2">
-                    <span className="hidden sm:inline">{t("common.next")}</span>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-              ) : (
-                <Link href="/learn">
-                  <Button className="gap-2">
-                    <span>
-                      {language === "ko" ? "학습 완료" : "Complete"}
-                    </span>
-                  </Button>
-                </Link>
-              )}
+          </div>
+          <div className="md:hidden">
+            {/* Mobile: full width layout */}
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                {prevLesson ? (
+                  <Link href={`/learn/${prevLesson.slug}`}>
+                    <Button variant="outline" className="gap-2">
+                      <ChevronLeft className="h-4 w-4" />
+                      <span>{t("common.previous")}</span>
+                    </Button>
+                  </Link>
+                ) : null}
+              </div>
+              <div>
+                {nextLesson ? (
+                  <Link href={`/learn/${nextLesson.slug}`}>
+                    <Button className="gap-2">
+                      <span>{t("common.next")}</span>
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link href="/learn">
+                    <Button className="gap-2">
+                      <span>
+                        {language === "ko" ? "학습 완료" : "Complete"}
+                      </span>
+                    </Button>
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         </div>

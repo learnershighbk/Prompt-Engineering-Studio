@@ -64,7 +64,7 @@ export default function LessonContent({
 
   return (
     <div className={cn("space-y-8", className)}>
-      <article className="prose prose-gray dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3 prose-p:text-gray-700 prose-p:leading-7 prose-p:mb-4 prose-strong:text-gray-900 prose-strong:font-semibold prose-ul:my-4 prose-li:text-gray-700 prose-li:leading-7 prose-code:text-white prose-pre:bg-gray-900">
+      <article className="prose prose-gray dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3 prose-p:text-gray-700 prose-p:leading-7 prose-p:mb-4 prose-strong:text-gray-900 prose-strong:font-semibold prose-ul:my-4 prose-li:text-gray-700 prose-li:leading-7 prose-pre:bg-transparent prose-code:text-inherit [&_pre_code_*]:!bg-transparent [&_pre_code_*]:!text-white [&_pre_code_*]:!border-0 [&_pre_code_mark]:!bg-transparent [&_pre_code_mark]:!text-white [&_pre_code_mark]:!border-0 [&_pre_code_span]:!bg-transparent [&_pre_code_span]:!text-white [&_pre_code_span]:!border-0 [&_pre_code_strong]:!bg-transparent [&_pre_code_strong]:!text-white [&_pre_code_strong]:!border-0 [&_pre_code_em]:!bg-transparent [&_pre_code_em]:!text-white [&_pre_code_em]:!border-0">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
@@ -125,14 +125,46 @@ export default function LessonContent({
                           </>
                         )}
                       </div>
-                      <pre className={cn(
-                        "overflow-x-auto rounded-md p-4 text-sm font-mono leading-relaxed",
-                        "bg-gray-900 !text-white",
-                        isBadExample
-                          ? "border border-red-300"
-                          : "border border-green-300"
-                      )}>
-                        <code className={cn("!text-white", className)} {...props} style={{ color: 'white' }}>
+                      <pre 
+                        className={cn(
+                          "overflow-x-auto rounded-md p-4 text-sm font-mono leading-relaxed",
+                          "!bg-slate-900 !text-white",
+                          "[&_*]:!text-white [&_*]:!bg-transparent",
+                          "[&_mark]:!text-white [&_mark]:!bg-transparent [&_mark]:!border-0",
+                          "[&_span]:!text-white [&_span]:!bg-transparent [&_span]:!border-0",
+                          "[&_strong]:!text-white [&_strong]:!bg-transparent [&_strong]:!border-0",
+                          "[&_em]:!text-white [&_em]:!bg-transparent [&_em]:!border-0",
+                          isBadExample
+                            ? "border border-red-300"
+                            : "border border-green-300"
+                        )}
+                        style={{ 
+                          backgroundColor: '#0f172a', 
+                          color: '#ffffff',
+                          textShadow: 'none',
+                          WebkitTextStrokeWidth: '0',
+                          WebkitTextStrokeColor: 'transparent',
+                          textStrokeWidth: '0',
+                          textStrokeColor: 'transparent',
+                          textRendering: 'optimizeSpeed',
+                          WebkitFontSmoothing: 'antialiased',
+                          MozOsxFontSmoothing: 'grayscale',
+                          paintOrder: 'fill'
+                        } as React.CSSProperties}
+                      >
+                        <code 
+                          className="!text-white [&_*]:!text-white [&_*]:!bg-transparent [&_*]:!border-0 [&_*]:!outline-0 [&_mark]:!text-white [&_mark]:!bg-transparent [&_mark]:!border-0 [&_span]:!text-white [&_span]:!bg-transparent [&_span]:!border-0" 
+                          style={{ 
+                            color: '#ffffff',
+                            textShadow: 'none',
+                            WebkitTextStrokeWidth: '0',
+                            WebkitTextStrokeColor: 'transparent',
+                            textStrokeWidth: '0',
+                            textStrokeColor: 'transparent',
+                            paintOrder: 'fill'
+                          } as React.CSSProperties}
+                          {...props}
+                        >
                           {children}
                         </code>
                       </pre>
@@ -148,9 +180,9 @@ export default function LessonContent({
               );
             },
             pre: ({ children, ...props }) => {
-              const codeElement = children as React.ReactElement;
+              const codeElement = children as React.ReactElement<{ className?: string }>;
               const codeProps = codeElement?.props || {};
-              const className = codeProps.className || '';
+              const className = codeProps?.className || '';
               const match = /language-(\w+)/.exec(className);
               const languageClass = match ? match[1] : '';
               
@@ -163,8 +195,36 @@ export default function LessonContent({
               
               return (
                 <div className="relative group my-4">
-                  <pre className="overflow-x-auto rounded-lg bg-gray-900 text-gray-100 p-5 text-sm font-mono leading-relaxed shadow-md border border-gray-800">
-                    {children}
+                  <pre 
+                    className="overflow-x-auto rounded-lg !bg-slate-900 border-2 border-slate-700 !text-white p-5 text-sm font-mono leading-relaxed shadow-md [&_*]:!text-white [&_*]:!bg-transparent [&_*]:!border-0 [&_mark]:!text-white [&_mark]:!bg-transparent [&_mark]:!border-0 [&_span]:!text-white [&_span]:!bg-transparent [&_span]:!border-0 [&_strong]:!text-white [&_strong]:!bg-transparent [&_strong]:!border-0 [&_em]:!text-white [&_em]:!bg-transparent [&_em]:!border-0"
+                    style={{ 
+                      backgroundColor: '#0f172a', 
+                      color: '#ffffff',
+                      textShadow: 'none',
+                      WebkitTextStrokeWidth: '0',
+                      WebkitTextStrokeColor: 'transparent',
+                      textStrokeWidth: '0',
+                      textStrokeColor: 'transparent',
+                      textRendering: 'optimizeSpeed',
+                      WebkitFontSmoothing: 'antialiased',
+                      MozOsxFontSmoothing: 'grayscale',
+                      paintOrder: 'fill'
+                    } as React.CSSProperties}
+                  >
+                    <code 
+                      className="!text-white [&_*]:!text-white [&_*]:!bg-transparent [&_*]:!border-0 [&_*]:!outline-0 [&_mark]:!text-white [&_mark]:!bg-transparent [&_mark]:!border-0 [&_span]:!text-white [&_span]:!bg-transparent [&_span]:!border-0 [&_strong]:!text-white [&_strong]:!bg-transparent [&_strong]:!border-0 [&_em]:!text-white [&_em]:!bg-transparent [&_em]:!border-0"
+                      style={{ 
+                        color: '#ffffff',
+                        textShadow: 'none',
+                        WebkitTextStrokeWidth: '0',
+                        WebkitTextStrokeColor: 'transparent',
+                        textStrokeWidth: '0',
+                        textStrokeColor: 'transparent',
+                        paintOrder: 'fill'
+                      } as React.CSSProperties}
+                    >
+                      {children}
+                    </code>
                   </pre>
                 </div>
               );
@@ -201,7 +261,7 @@ export default function LessonContent({
       </article>
 
       {examples.length > 0 && (
-        <section className="space-y-4 mt-10">
+        <section className="space-y-4 mt-10 mb-6">
           <div className="flex items-center gap-2 mb-4">
             <Lightbulb className="h-6 w-6 text-yellow-500" />
             <h3 className="text-xl font-semibold text-gray-900">
@@ -249,16 +309,48 @@ function ExampleCard({ example, onTry }: ExampleCardProps) {
         <p className="text-sm text-gray-600 mt-1">{example.description}</p>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="relative">
-          <pre className="rounded-lg bg-gray-900 text-gray-100 p-4 text-sm whitespace-pre-wrap font-mono overflow-x-auto border border-gray-800 shadow-inner">
-            {example.prompt}
+        <div className="relative group">
+          <pre 
+            className="rounded-lg !bg-slate-900 !text-white p-4 text-sm whitespace-pre-wrap font-mono overflow-x-auto border border-slate-700 shadow-inner [&_*]:!text-white [&_*]:!bg-transparent [&_*]:!border-0 [&_mark]:!text-white [&_mark]:!bg-transparent [&_mark]:!border-0 [&_span]:!text-white [&_span]:!bg-transparent [&_span]:!border-0 [&_strong]:!text-white [&_strong]:!bg-transparent [&_strong]:!border-0 [&_em]:!text-white [&_em]:!bg-transparent [&_em]:!border-0"
+            style={{ 
+              backgroundColor: '#0f172a', 
+              color: '#ffffff',
+              textShadow: 'none',
+              WebkitTextStrokeWidth: '0',
+              WebkitTextStrokeColor: 'transparent',
+              textStrokeWidth: '0',
+              textStrokeColor: 'transparent',
+              textRendering: 'optimizeSpeed',
+              WebkitFontSmoothing: 'antialiased',
+              MozOsxFontSmoothing: 'grayscale',
+              paintOrder: 'fill'
+            } as React.CSSProperties}
+          >
+            <code 
+              className="!text-white block w-full [&_*]:!text-white [&_*]:!bg-transparent [&_*]:!border-0 [&_*]:!outline-0 [&_mark]:!text-white [&_mark]:!bg-transparent [&_mark]:!border-0 [&_span]:!text-white [&_span]:!bg-transparent [&_span]:!border-0 [&_strong]:!text-white [&_strong]:!bg-transparent [&_strong]:!border-0 [&_em]:!text-white [&_em]:!bg-transparent [&_em]:!border-0"
+              style={{ 
+                color: '#ffffff',
+                textShadow: 'none',
+                WebkitTextStrokeWidth: '0',
+                WebkitTextStrokeColor: 'transparent',
+                textStrokeWidth: '0',
+                textStrokeColor: 'transparent',
+                paintOrder: 'fill'
+              } as React.CSSProperties}
+            >
+              {example.prompt}
+            </code>
           </pre>
-          <div className="absolute top-3 right-3 flex gap-1">
+          <div className="absolute top-3 right-3 flex gap-1 z-10 pointer-events-auto">
             <Button
               variant="ghost"
               size="sm"
-              onClick={handleCopy}
-              className="h-8 px-3 bg-white/90 hover:bg-white text-gray-700 shadow-sm"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleCopy();
+              }}
+              className="h-8 px-3 bg-white/95 hover:bg-white text-gray-700 shadow-md border border-gray-200"
             >
               {copied ? (
                 <>
