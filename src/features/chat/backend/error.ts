@@ -8,3 +8,4 @@ type ChatErrorValue = (typeof chatErrorCodes)[keyof typeof chatErrorCodes];
 
 export type ChatServiceError = ChatErrorValue;
 
+

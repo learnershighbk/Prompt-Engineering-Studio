@@ -48,7 +48,8 @@ describe('PromptEditor', () => {
   it('글자 수를 표시한다', () => {
     render(<PromptEditor {...defaultProps} value="테스트" />);
 
-    expect(screen.getByText('5/4000')).toBeInTheDocument();
+    // "테스트"는 한글 3글자이므로 .length는 3
+    expect(screen.getByText('3/4000')).toBeInTheDocument();
   });
 
   it('최대 글자 수 제한을 표시한다', () => {
@@ -143,4 +144,5 @@ describe('PromptEditor', () => {
     expect(resetButton).toBeDisabled();
   });
 });
+
 

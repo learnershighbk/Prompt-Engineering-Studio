@@ -20,7 +20,25 @@ export const getOpenAI = (): OpenAI => {
   return openaiInstance;
 };
 
-export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY ?? '',
-});
+// Lazy initialization을 위한 getter - 테스트 환경에서의 모듈 로드 시점 인스턴스 생성 방지
+export const openai = {
+  get chat() {
+    return getOpenAI().chat;
+  },
+  get completions() {
+    return getOpenAI().completions;
+  },
+  get embeddings() {
+    return getOpenAI().embeddings;
+  },
+  get files() {
+    return getOpenAI().files;
+  },
+  get images() {
+    return getOpenAI().images;
+  },
+  get models() {
+    return getOpenAI().models;
+  },
+};
 

@@ -52,9 +52,10 @@ describe('LessonCard', () => {
   });
 
   it('완료 상태에서는 체크 아이콘을 표시한다', () => {
-    render(<LessonCard {...defaultProps} isCompleted={true} />);
+    const { container } = render(<LessonCard {...defaultProps} isCompleted={true} />);
 
-    const checkIcon = screen.getByRole('img', { hidden: true });
+    // lucide-react SVG 아이콘은 aria-hidden="true"로 설정되어 있어 class로 찾음
+    const checkIcon = container.querySelector('.lucide-check');
     expect(checkIcon).toBeInTheDocument();
   });
 

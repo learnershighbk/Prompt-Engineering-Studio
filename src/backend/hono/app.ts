@@ -12,7 +12,8 @@ import type { AppEnv } from '@/backend/hono/context';
 let singletonApp: Hono<AppEnv> | null = null;
 
 export const createHonoApp = () => {
-  if (process.env.NODE_ENV === 'development') {
+  // development와 test 환경에서는 싱글톤을 초기화하여 HMR 및 mock이 적용되도록 함
+  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
     singletonApp = null;
   }
 

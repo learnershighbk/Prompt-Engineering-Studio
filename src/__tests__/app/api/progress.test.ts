@@ -1,15 +1,26 @@
 import { GET, POST } from '@/app/api/[[...hono]]/route';
 import { NextRequest } from 'next/server';
 
+let currentMockData: any = {};
+
 const createMockSupabase = (mockData: any) => ({
   from: jest.fn((table: string) => {
     if (table === 'progress') {
       return {
-        select: jest.fn(() => ({
-          eq: jest.fn(() => ({
-            order: jest.fn().mockResolvedValue(mockData.progress?.select || { data: [], error: null }),
-          })),
-        })),
+        select: jest.fn((columns?: string) => {
+          const selectMock = {
+            eq: jest.fn(() => ({
+              order: jest.fn().mockResolvedValue(mockData.progress?.select || { data: [], error: null }),
+            })),
+          };
+          // getProgressForApi는 select('lesson_slug, completed, completed_at').eq()를 사용
+          if (columns) {
+            return {
+              eq: jest.fn().mockResolvedValue(mockData.progress?.select || { data: [], error: null }),
+            };
+          }
+          return selectMock;
+        }),
         upsert: jest.fn(() => ({
           select: jest.fn(() => ({
             single: jest.fn().mockResolvedValue(mockData.progress?.upsert || { data: null, error: null }),
@@ -29,7 +40,7 @@ const createMockSupabase = (mockData: any) => ({
 
 jest.mock('@/backend/middleware/supabase', () => ({
   withSupabase: () => async (c: any, next: any) => {
-    const mockSupabase = createMockSupabase({});
+    const mockSupabase = createMockSupabase(currentMockData);
     c.set('supabase', mockSupabase);
     await next();
   },
@@ -54,40 +65,31 @@ jest.mock('@/backend/middleware/context', () => ({
 }));
 
 describe('/api/progress', () => {
+  beforeEach(() => {
+    currentMockData = {};
+  });
+
   describe('GET', () => {
     it('사용자 진도 조회 성공', async () => {
-      const mockSupabase = createMockSupabase({
+      currentMockData = {
         progress: {
           select: {
             data: [
               {
-                id: '550e8400-e29b-41d4-a716-446655440000',
-                user_id: '550e8400-e29b-41d4-a716-446655440001',
                 lesson_slug: 'intro',
                 completed: true,
                 completed_at: '2025-11-25T10:30:00.000Z',
-                created_at: '2025-11-25T10:00:00.000Z',
-                updated_at: '2025-11-25T10:30:00.000Z',
               },
               {
-                id: '550e8400-e29b-41d4-a716-446655440002',
-                user_id: '550e8400-e29b-41d4-a716-446655440001',
                 lesson_slug: 'zero-shot',
                 completed: true,
                 completed_at: '2025-11-25T11:00:00.000Z',
-                created_at: '2025-11-25T11:00:00.000Z',
-                updated_at: '2025-11-25T11:00:00.000Z',
               },
             ],
             error: null,
           },
         },
-      });
-
-      jest.spyOn(require('@/backend/middleware/supabase'), 'withSupabase').mockImplementation(() => async (c: any, next: any) => {
-        c.set('supabase', mockSupabase);
-        await next();
-      });
+      };
 
       const request = new NextRequest('http://localhost:3000/api/progress?userId=550e8400-e29b-41d4-a716-446655440001', {
         method: 'GET',
@@ -105,19 +107,14 @@ describe('/api/progress', () => {
     });
 
     it('존재하지 않는 사용자 처리', async () => {
-      const mockSupabase = createMockSupabase({
+      currentMockData = {
         progress: {
           select: {
             data: [],
             error: null,
           },
         },
-      });
-
-      jest.spyOn(require('@/backend/middleware/supabase'), 'withSupabase').mockImplementation(() => async (c: any, next: any) => {
-        c.set('supabase', mockSupabase);
-        await next();
-      });
+      };
 
       const request = new NextRequest('http://localhost:3000/api/progress?userId=550e8400-e29b-41d4-a716-446655440001', {
         method: 'GET',
@@ -135,27 +132,18 @@ describe('/api/progress', () => {
 
   describe('POST', () => {
     it('학습 완료 저장 성공', async () => {
-      const mockSupabase = createMockSupabase({
+      currentMockData = {
         progress: {
           upsert: {
             data: {
-              id: '550e8400-e29b-41d4-a716-446655440000',
-              user_id: '550e8400-e29b-41d4-a716-446655440001',
               lesson_slug: 'zero-shot',
               completed: true,
               completed_at: '2025-11-25T12:00:00.000Z',
-              created_at: '2025-11-25T12:00:00.000Z',
-              updated_at: '2025-11-25T12:00:00.000Z',
             },
             error: null,
           },
         },
-      });
-
-      jest.spyOn(require('@/backend/middleware/supabase'), 'withSupabase').mockImplementation(() => async (c: any, next: any) => {
-        c.set('supabase', mockSupabase);
-        await next();
-      });
+      };
 
       const request = new NextRequest('http://localhost:3000/api/progress', {
         method: 'POST',
@@ -220,4 +208,5 @@ describe('/api/progress', () => {
     });
   });
 });
+
 

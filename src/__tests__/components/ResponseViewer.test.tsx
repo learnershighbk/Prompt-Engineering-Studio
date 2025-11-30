@@ -79,7 +79,6 @@ describe('ResponseViewer', () => {
 
   it('복사 성공 시 "복사됨" 메시지를 표시한다', async () => {
     const user = userEvent.setup();
-    jest.useFakeTimers();
 
     render(
       <ResponseViewer content="테스트 응답" isStreaming={false} />
@@ -88,10 +87,9 @@ describe('ResponseViewer', () => {
     const copyButton = screen.getByRole('button', { name: /복사/i });
     await user.click(copyButton);
 
-    expect(screen.getByText('복사됨')).toBeInTheDocument();
-
-    jest.advanceTimersByTime(2000);
-    jest.useRealTimers();
+    await waitFor(() => {
+      expect(screen.getByText('복사됨')).toBeInTheDocument();
+    });
   });
 
   it('스트리밍 중일 때 복사 버튼이 비활성화된다', () => {
@@ -136,4 +134,5 @@ describe('ResponseViewer', () => {
     expect(screen.queryByRole('button', { name: /복사/i })).not.toBeInTheDocument();
   });
 });
+
 

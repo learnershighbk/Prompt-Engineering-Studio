@@ -5,7 +5,7 @@ import { NextRequest } from 'next/server';
 const createMockSupabase = (mockData: any) => ({
   from: jest.fn((table: string) => {
     if (table === 'users') {
-      return {
+      const tableMock = {
         select: jest.fn(() => ({
           eq: jest.fn(() => ({
             maybeSingle: jest.fn().mockResolvedValue(mockData.users?.maybeSingle || { data: null, error: null }),
@@ -17,6 +17,7 @@ const createMockSupabase = (mockData: any) => ({
           })),
         })),
       };
+      return tableMock;
     }
     return {
       select: jest.fn(() => ({
@@ -28,9 +29,11 @@ const createMockSupabase = (mockData: any) => ({
   }),
 });
 
+let currentMockData: any = {};
+
 jest.mock('@/backend/middleware/supabase', () => ({
   withSupabase: () => async (c: any, next: any) => {
-    const mockSupabase = createMockSupabase({});
+    const mockSupabase = createMockSupabase(currentMockData);
     c.set('supabase', mockSupabase);
     await next();
   },
@@ -55,9 +58,13 @@ jest.mock('@/backend/middleware/context', () => ({
 }));
 
 describe('/api/auth', () => {
+  beforeEach(() => {
+    currentMockData = {};
+  });
+
   describe('POST', () => {
     it('유효한 9자리 학번으로 신규 사용자 생성', async () => {
-      const mockSupabase = createMockSupabase({
+      currentMockData = {
         users: {
           maybeSingle: { data: null, error: null },
           insert: {
@@ -72,12 +79,7 @@ describe('/api/auth', () => {
             error: null,
           },
         },
-      });
-
-      jest.spyOn(require('@/backend/middleware/supabase'), 'withSupabase').mockImplementation(() => async (c: any, next: any) => {
-        c.set('supabase', mockSupabase);
-        await next();
-      });
+      };
 
       const request = new NextRequest('http://localhost:3000/api/auth', {
         method: 'POST',
@@ -97,7 +99,7 @@ describe('/api/auth', () => {
     });
 
     it('유효한 9자리 학번으로 기존 사용자 조회', async () => {
-      const mockSupabase = createMockSupabase({
+      currentMockData = {
         users: {
           maybeSingle: {
             data: {
@@ -111,12 +113,7 @@ describe('/api/auth', () => {
             error: null,
           },
         },
-      });
-
-      jest.spyOn(require('@/backend/middleware/supabase'), 'withSupabase').mockImplementation(() => async (c: any, next: any) => {
-        c.set('supabase', mockSupabase);
-        await next();
-      });
+      };
 
       const request = new NextRequest('http://localhost:3000/api/auth', {
         method: 'POST',
