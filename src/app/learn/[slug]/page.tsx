@@ -112,22 +112,22 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header showBackButton studentId={studentId || undefined} />
 
-      <main className="flex-1 container py-6">
-        <div className="mb-6">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-            <Link href="/learn" className="hover:text-foreground transition-colors">
+      <main className="flex-1 container py-8">
+        <div className="mb-8">
+          <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
+            <Link href="/learn" className="hover:text-gray-900 transition-colors">
               {t("learn.title")}
             </Link>
             <ChevronRight className="h-4 w-4" />
-            <span className="text-foreground">{lesson.title}</span>
+            <span className="text-gray-900 font-medium">{lesson.title}</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">{lesson.title}</h1>
-          <p className="text-muted-foreground mt-1">{lesson.description}</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{lesson.title}</h1>
+          <p className="text-gray-600 text-lg">{lesson.description}</p>
         </div>
 
         {/* Desktop Layout */}
         <div className="hidden md:grid md:grid-cols-2 md:gap-6 md:h-[calc(100vh-280px)]">
-          <div className="overflow-auto rounded-lg border border-gray-200 bg-white p-6">
+          <div className="overflow-auto rounded-lg border border-gray-200 bg-white p-8 shadow-sm">
             <LessonContent
               content={lesson.content}
               examples={lesson.examples}
@@ -204,7 +204,7 @@ export default function LessonDetailPage({ params }: LessonDetailPageProps) {
             </TabsList>
 
             <TabsContent value="content" className="mt-0">
-              <div className="rounded-lg border border-gray-200 bg-white p-4">
+              <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
                 <LessonContent
                   content={lesson.content}
                   examples={lesson.examples}

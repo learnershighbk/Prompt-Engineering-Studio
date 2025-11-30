@@ -34,9 +34,9 @@ export default function LoginPage() {
       const response = await apiClient.post("/api/auth", { studentId });
       const data = response.data;
 
-      if (data.data?.user) {
-        localStorage.setItem(USER_ID_KEY, data.data.user.id);
-        localStorage.setItem(STUDENT_ID_KEY, data.data.user.studentId);
+      if (data?.user) {
+        localStorage.setItem(USER_ID_KEY, data.user.id);
+        localStorage.setItem(STUDENT_ID_KEY, data.user.studentId);
         router.push("/learn");
       } else {
         setError(t("login.loginFailed"));
